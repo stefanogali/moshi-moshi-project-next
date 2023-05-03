@@ -9,10 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/font": "^13.3.0",
+    "bootstrap": "^5.2.3",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "next": "13.2.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-bootstrap": "^2.7.2",
+    "react-dom": "18.2.0",
+    "serverless-mysql": "^1.5.5"
+  },
+  "devDependencies": {
+    "sass": "^1.61.0"
+  },
+  "prettier": {
+    "tabWidth": 4,
+    "useTabs": true,
+    "semi": true,
+    "bracketSpacing": false
   }
 }

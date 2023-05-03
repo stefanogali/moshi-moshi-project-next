@@ -1,0 +1,26 @@
+ul.nav-list{
+	list-style-type: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding:0;
+
+	li{
+		margin-left: 20px;
+		cursor: pointer;
+
+		&:before{
+			content: "•";
+			position: relative;
+			left: -10px;
+			cursor: auto;
+		}
+
+		&:first-child{
+			margin-left: 0;
+			&:before{
+				content: none;
+			}
+		}
+	}
+}
