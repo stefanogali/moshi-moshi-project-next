@@ -1,0 +1,22 @@
+.about-main {
+	padding: 5rem 0;
+	.about-row {
+		padding: 2.5rem 0;
+		.face-container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.face-image {
+				max-width: 16.8rem;
+			}
+		}
+		.about-text-container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.about-text {
+				font-size: 1.25rem;
+			}
+		}
+	}
+}

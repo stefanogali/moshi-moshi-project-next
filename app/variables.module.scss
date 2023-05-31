@@ -1,5 +1,7 @@
 $primary-color: #f6f7fc;
+$button-color: #60ecbd;
 
 :export {
-  primaryColor: $primary-color;
+	primaryColor: $primary-color;
+	buttonColor: $button-color;
 }

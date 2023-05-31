@@ -1,0 +1,31 @@
+@import "../../variables.module.scss";
+
+.shopping-cart {
+	margin-top: 1.85rem;
+
+	&.fixed {
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0.6rem;
+	}
+	.cart-icon-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.8rem;
+		background-color: $button-color;
+		margin-bottom: 0.5rem;
+		cursor: pointer;
+		.cart-icon {
+			max-width: 1.8rem;
+		}
+	}
+	.delivery-details {
+		.delivery-title {
+			font-weight: bold;
+		}
+		h3 + p {
+			margin-bottom: 0;
+		}
+	}
+}

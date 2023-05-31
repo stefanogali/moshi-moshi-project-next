@@ -3,6 +3,7 @@ import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Header from "./global-components/Header/Header";
+import Footer from "./global-components/Footer/Footer";
 
 const ptSans = PT_Sans({
 	weight: ["400", "700"],
@@ -20,6 +21,7 @@ export default function RootLayout({children}) {
 			<body className={ptSans.className}>
 				<Header />
 				{children}
+				<Footer />
 			</body>
 		</html>
 	);

@@ -1,6 +1,9 @@
+@import "../../variables.module.scss";
+
 .products-main {
 	position: relative;
-	padding-bottom: 1.25rem;
+	padding: 2rem 0 5rem 0;
+	background-color: $primary-color;
 	&:before,
 	&:after {
 		position: absolute;
