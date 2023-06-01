@@ -10,7 +10,7 @@ import styles from "./ContactForm.module.scss";
 export default function ContactForm() {
 	return (
 		<div className={styles["contact-main"]}>
-			<Container className={styles["form-container"]}>
+			<Container className={styles["form-container"]} id="contacts">
 				<Row>
 					<Col>
 						<h2 className={styles.title}>Contact us!</h2>

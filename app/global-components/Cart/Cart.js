@@ -30,8 +30,6 @@ export default function Cart() {
 		};
 	}, []);
 
-	console.log("attach", attach);
-
 	return (
 		<div
 			className={`${styles["shopping-cart"]} ${

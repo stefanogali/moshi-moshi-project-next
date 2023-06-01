@@ -8,7 +8,7 @@ import styles from "./About.module.scss";
 export default function About() {
 	return (
 		<div className={styles["about-main"]}>
-			<Container>
+			<Container id="about">
 				<Row className={styles["about-row"]}>
 					<Col lg={4} className={styles["face-container"]}>
 						{" "}

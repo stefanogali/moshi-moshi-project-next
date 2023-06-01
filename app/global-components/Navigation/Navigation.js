@@ -1,5 +1,6 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import ScrollTo from "../Scrollto/ScrollTo";
 
 import styles from "./Navigation.module.scss";
 
@@ -9,9 +10,28 @@ export default function Navigation() {
 			<Col>
 				<nav>
 					<ul className={styles["nav-list"]}>
-						<li>Products</li>
-						<li>About</li>
-						<li>Contacts</li>
+						<ScrollTo
+							toId="products"
+							duration={500}
+							className={styles["navigation-list"]}
+						>
+							<li>Products</li>
+						</ScrollTo>
+						<ScrollTo
+							toId="about"
+							duration={500}
+							detractFromTop={0}
+							className={styles["navigation-list"]}
+						>
+							<li>About</li>
+						</ScrollTo>
+						<ScrollTo
+							toId="contacts"
+							duration={500}
+							className={styles["navigation-list"]}
+						>
+							<li>Contacts</li>
+						</ScrollTo>
 					</ul>
 				</nav>
 			</Col>

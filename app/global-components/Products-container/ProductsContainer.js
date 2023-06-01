@@ -21,7 +21,7 @@ export default function ProductsContainer({children, className, rowClassName}) {
 	// console.log("products in bootstrap container", products);
 
 	return (
-		<Container className={className}>
+		<Container className={className} id="products">
 			<Row>
 				<Col lg={9}>
 					<Row className={rowClassName}>{children}</Row>

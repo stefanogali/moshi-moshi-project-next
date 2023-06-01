@@ -1,24 +1,25 @@
-ul.nav-list{
+ul.nav-list {
 	list-style-type: none;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding:0;
+	padding: 0;
 
-	li{
+	.navigation-list {
 		margin-left: 20px;
 		cursor: pointer;
+		display: flex;
 
-		&:before{
+		&:before {
 			content: "•";
 			position: relative;
 			left: -10px;
 			cursor: auto;
 		}
 
-		&:first-child{
+		&:first-child {
 			margin-left: 0;
-			&:before{
+			&:before {
 				content: none;
 			}
 		}
