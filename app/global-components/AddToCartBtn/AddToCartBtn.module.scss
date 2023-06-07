@@ -1,0 +1,12 @@
+@import "../../variables.module.scss";
+
+.buy-btn-container .buy-btn {
+	background-color: $button-color;
+	border: none;
+	color: inherit;
+	text-transform: uppercase;
+	font-size: 0.87rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	border-radius: 1.25rem;
+}

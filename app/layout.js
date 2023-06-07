@@ -2,6 +2,7 @@ import {PT_Sans} from "@next/font/google";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// import {CartContextProvider} from "./store/cart-context";
 import Header from "./global-components/Header/Header";
 import Footer from "./global-components/Footer/Footer";
 

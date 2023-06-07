@@ -1,10 +1,13 @@
 import {useEffect, useState, useRef} from "react";
 import styles from "./Cart.module.scss";
+import {useStore} from "@/app/hook-store/store";
 
 export default function Cart() {
 	const [sidebarTop, setSidebarTop] = useState();
 	const [attach, setAttach] = useState(false);
 	const shoppingCartRef = useRef();
+	const store = useStore()[0];
+	console.log("store", store);
 
 	const clickHandler = () => {
 		console.log("clicked");

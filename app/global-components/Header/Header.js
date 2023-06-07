@@ -20,6 +20,10 @@ const sniglet = Sniglet({
 	weight: ["400", "800"],
 	subsets: ["latin"],
 });
+//store initiated here since in layout will trow error because of server component
+import configureStore from "@/app/hook-store/products-store";
+
+configureStore();
 
 export default function Header() {
 	return (
