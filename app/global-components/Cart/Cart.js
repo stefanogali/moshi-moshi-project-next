@@ -1,21 +1,41 @@
 import {useEffect, useState, useRef} from "react";
-import styles from "./Cart.module.scss";
 import {useStore} from "@/app/hook-store/store";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
+import Overlay from "react-bootstrap/Overlay";
+import Button from "react-bootstrap/Button";
+import styles from "./Cart.module.scss";
 
 export default function Cart() {
-	const [sidebarTop, setSidebarTop] = useState();
+	const [showCart, setShowCart] = useState(false);
 	const [attach, setAttach] = useState(false);
+	const [target, setTarget] = useState(null);
+	const shoppingCartContainerRef = useRef();
 	const shoppingCartRef = useRef();
-	const store = useStore()[0];
+	const [store, dispatch] = useStore();
 	console.log("store", store);
 
-	const clickHandler = () => {
-		console.log("clicked");
+	const sumTotal = (arr) => arr.reduce((sum, {price}) => sum + price, 0);
+
+	const clickHandler = (event) => {
+		setShowCart((prev) => !prev);
+		setTarget(event.target);
 	};
+
+	const removeProductClickHandler = (id) => {
+		dispatch("REMOVE_PRODUCT", {
+			id,
+		});
+	};
+
+	const goToCheckout = () => {};
 
 	const detectScrolled = () => {
 		const scrollTop = window.pageYOffset;
-		if (scrollTop >= shoppingCartRef.current.offsetParent.offsetTop + 30) {
+		if (
+			scrollTop >=
+			shoppingCartContainerRef.current.offsetParent.offsetTop + 30
+		) {
 			setAttach(true);
 		} else {
 			setAttach(false);
@@ -23,7 +43,7 @@ export default function Cart() {
 	};
 
 	useEffect(() => {
-		if (window.pageYOffset > 50) {
+		if (window.scrollY > 50) {
 			detectScrolled();
 		}
 
@@ -33,17 +53,129 @@ export default function Cart() {
 		};
 	}, []);
 
+	useEffect(() => {
+		console.log(store.products.length);
+		if (store.products.length === 0) {
+			setShowCart(false);
+		}
+	}, [store.products.length]);
+
 	return (
 		<div
 			className={`${styles["shopping-cart"]} ${
 				attach ? ` ${styles.fixed}` : ""
 			}`}
-			ref={shoppingCartRef}
-			onClick={clickHandler}
+			ref={shoppingCartContainerRef}
 		>
-			<div className={styles["cart-icon-container"]}>
+			<div
+				className={styles["cart-icon-container"]}
+				onClick={clickHandler}
+				ref={shoppingCartRef}
+			>
 				<img className={styles["cart-icon"]} src={`./cart.png`} />
+				{store.products.length ? (
+					<div className={styles["number-items-in-cart"]}>
+						{store.products.length}
+					</div>
+				) : null}
 			</div>
+			<Overlay
+				show={showCart}
+				placement="left"
+				target={target}
+				container={shoppingCartContainerRef}
+			>
+				<Popover id={`popover`} className={styles["popover-cart"]}>
+					<Popover.Body className={styles["popover-cart-body"]}>
+						{store.products.length === 0 ? (
+							<div className={"cart-empty-container"}>
+								<strong>Your cart is empty!</strong>
+								<p>Try to add a product first</p>
+							</div>
+						) : (
+							<div className={styles["cart-products-container"]}>
+								{store.products.map((product, index) => (
+									<div
+										className={styles["cart-product"]}
+										key={index}
+									>
+										<div
+											className={styles["product-image"]}
+										>
+											{" "}
+											<img
+												className={
+													styles["product-image"]
+												}
+												src={`./product-images/${product.productImage}`}
+											/>
+										</div>
+										<div
+											className={
+												styles["product-details"]
+											}
+										>
+											<strong>Your t-shirt:</strong>
+											<p>{product.name}</p>
+											<div
+												className={
+													styles["product-spec"]
+												}
+											>
+												<p>£{product.price}</p>
+												<p>
+													Size: {product.selectedSize}
+												</p>
+											</div>
+
+											<p
+												className={
+													styles["remove-item"]
+												}
+												onClick={removeProductClickHandler.bind(
+													null,
+													product.id
+												)}
+											>
+												<img
+													className={
+														styles["bin-image"]
+													}
+													src={`./garbage.svg`}
+												/>
+												<span
+													className={
+														styles["remove-text"]
+													}
+												>
+													Remove item
+												</span>
+											</p>
+										</div>
+									</div>
+								))}
+								<div className={styles["total-price"]}>
+									<p>Total price</p>
+									<strong>£{sumTotal(store.products)}</strong>
+								</div>
+								<div
+									className={
+										styles["checkout-button-container"]
+									}
+								>
+									<Button
+										className={styles["checkout-btn"]}
+										onClick={goToCheckout}
+									>
+										Checkout
+									</Button>
+								</div>
+							</div>
+						)}
+					</Popover.Body>
+				</Popover>
+			</Overlay>
+
 			<div className={styles["delivery-details"]}>
 				<h3 className={styles["delivery-title"]}>
 					Deliveries in all UK!

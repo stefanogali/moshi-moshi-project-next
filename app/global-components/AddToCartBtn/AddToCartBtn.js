@@ -8,11 +8,9 @@ export default function AddToCartBtn({
 	id,
 	selectedSize,
 	price,
-	description,
+	name,
 }) {
 	const dispatch = useStore(false)[1];
-
-	console.log("rendering add to cart button");
 
 	const addProduct = () => {
 		dispatch("ADD_PRODUCTS", {
@@ -20,7 +18,7 @@ export default function AddToCartBtn({
 			id,
 			selectedSize,
 			price,
-			description,
+			name,
 		});
 	};
 

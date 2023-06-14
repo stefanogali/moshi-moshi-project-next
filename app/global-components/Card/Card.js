@@ -335,7 +335,7 @@ export default function Card({
 						id={id}
 						selectedSize={selectedSize}
 						price={price}
-						description={description}
+						name={name}
 					/>
 				</div>
 			</div>
