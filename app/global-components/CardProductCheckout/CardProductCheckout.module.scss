@@ -1,0 +1,35 @@
+.row-product-checkout {
+	justify-content: center;
+	&:last-child {
+		.col-product-checkout {
+			border-bottom: none;
+		}
+	}
+	&:first-child {
+		.col-product-checkout {
+			border-top: 1px solid #ced4da;
+		}
+	}
+
+	.col-product-checkout {
+		padding: 1.25rem 0;
+		border-bottom: 1px solid #ced4da;
+		.product-container {
+			display: flex;
+
+			.product-image-container {
+				flex: 0 0 20%;
+
+				.product-image {
+					width: 100%;
+				}
+			}
+			.product-description {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex: 0 0 80%;
+			}
+		}
+	}
+}

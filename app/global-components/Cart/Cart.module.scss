@@ -106,8 +106,7 @@
 		.checkout-btn {
 			background-color: $button-color;
 			border: none;
-			color: inherit;
-
+			color: var(--bs-body-color);
 			font-size: 0.87rem;
 			padding-left: 1rem;
 			padding-right: 1rem;

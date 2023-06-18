@@ -1,6 +1,7 @@
 import {useEffect, useState, useRef} from "react";
 import {useStore} from "@/app/hook-store/store";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import {sumTotal} from "@/helper-functions/helpers";
+import Link from "next/link";
 import Popover from "react-bootstrap/Popover";
 import Overlay from "react-bootstrap/Overlay";
 import Button from "react-bootstrap/Button";
@@ -13,9 +14,7 @@ export default function Cart() {
 	const shoppingCartContainerRef = useRef();
 	const shoppingCartRef = useRef();
 	const [store, dispatch] = useStore();
-	console.log("store", store);
-
-	const sumTotal = (arr) => arr.reduce((sum, {price}) => sum + price, 0);
+	// console.log("store", store);
 
 	const clickHandler = (event) => {
 		setShowCart((prev) => !prev);
@@ -54,7 +53,6 @@ export default function Cart() {
 	}, []);
 
 	useEffect(() => {
-		console.log(store.products.length);
 		if (store.products.length === 0) {
 			setShowCart(false);
 		}
@@ -163,12 +161,13 @@ export default function Cart() {
 										styles["checkout-button-container"]
 									}
 								>
-									<Button
-										className={styles["checkout-btn"]}
-										onClick={goToCheckout}
-									>
-										Checkout
-									</Button>
+									<Link href="/checkout">
+										<Button
+											className={styles["checkout-btn"]}
+										>
+											Checkout
+										</Button>
+									</Link>
 								</div>
 							</div>
 						)}

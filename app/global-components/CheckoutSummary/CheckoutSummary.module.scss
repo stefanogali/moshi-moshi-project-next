@@ -1,0 +1,11 @@
+.row-checkout-summary {
+	justify-content: center;
+	ul {
+		padding-left: 0;
+		li {
+			list-style-type: none;
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+}
