@@ -1,21 +1,27 @@
-.header{
+.header {
 	padding: 10px 0;
-	.logo-container{
+	.logo-container {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		padding: 0;
-		.header-logo{
+		.header-logo {
 			max-width: 80px;
 			height: auto;
 			transform: rotate(-3deg);
 		}
 	}
-	.logo-text-container{
+	.logo-text-container {
 		padding: 5px 0 0 0;
 		text-align: center;
+		.shop-name {
+			font-family: "Monoton", cursive;
+		}
 	}
-	.logo-subtext-container{
+	.logo-subtext-container {
 		text-align: center;
+		.shop-name-subtitle {
+			font-family: "Sniglet", cursive;
+		}
 	}
 }

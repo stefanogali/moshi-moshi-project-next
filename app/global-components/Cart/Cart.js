@@ -11,10 +11,10 @@ export default function Cart() {
 	const [showCart, setShowCart] = useState(false);
 	const [attach, setAttach] = useState(false);
 	const [target, setTarget] = useState(null);
+	const [productsInCart, setProductsInCart] = useState([]);
 	const shoppingCartContainerRef = useRef();
 	const shoppingCartRef = useRef();
 	const [store, dispatch] = useStore();
-	// console.log("store", store);
 
 	const clickHandler = (event) => {
 		setShowCart((prev) => !prev);
@@ -25,16 +25,20 @@ export default function Cart() {
 		dispatch("REMOVE_PRODUCT", {
 			id,
 		});
+
+		if (store.products.length === 0) {
+			let productsFromLocalStorage = window.localStorage.getItem("cartProducts");
+			productsFromLocalStorage = JSON.parse(productsFromLocalStorage);
+			if (productsFromLocalStorage.products.length === 0) {
+				setProductsInCart([]);
+				setShowCart(false);
+			}
+		}
 	};
 
-	const goToCheckout = () => {};
-
 	const detectScrolled = () => {
-		const scrollTop = window.pageYOffset;
-		if (
-			scrollTop >=
-			shoppingCartContainerRef.current.offsetParent.offsetTop + 30
-		) {
+		const scrollTop = window.scrollY;
+		if (scrollTop >= shoppingCartContainerRef.current.offsetParent.offsetTop + 30) {
 			setAttach(true);
 		} else {
 			setAttach(false);
@@ -53,120 +57,68 @@ export default function Cart() {
 	}, []);
 
 	useEffect(() => {
+		let productsFromLocalStorage = window.localStorage.getItem("cartProducts");
+		productsFromLocalStorage = JSON.parse(productsFromLocalStorage);
+		if (new Date().getTime() > Date.parse(productsFromLocalStorage?.expiry)) {
+			window.localStorage.removeItem("cartProducts");
+			setProductsInCart([]);
+			return;
+		}
+		setProductsInCart(productsFromLocalStorage?.products || []);
+	}, []);
+
+	useEffect(() => {
 		if (store.products.length === 0) {
 			setShowCart(false);
+		} else {
+			setProductsInCart(store.products);
 		}
 	}, [store.products.length]);
 
 	return (
-		<div
-			className={`${styles["shopping-cart"]} ${
-				attach ? ` ${styles.fixed}` : ""
-			}`}
-			ref={shoppingCartContainerRef}
-		>
-			<div
-				className={styles["cart-icon-container"]}
-				onClick={clickHandler}
-				ref={shoppingCartRef}
-			>
+		<div className={`${styles["shopping-cart"]} ${attach ? ` ${styles.fixed}` : ""}`} ref={shoppingCartContainerRef}>
+			<div className={styles["cart-icon-container"]} onClick={clickHandler} ref={shoppingCartRef}>
 				<img className={styles["cart-icon"]} src={`./cart.png`} />
-				{store.products.length ? (
-					<div className={styles["number-items-in-cart"]}>
-						{store.products.length}
-					</div>
-				) : null}
+				{productsInCart.length ? <div className={styles["number-items-in-cart"]}>{productsInCart.length}</div> : null}
 			</div>
-			<Overlay
-				show={showCart}
-				placement="left"
-				target={target}
-				container={shoppingCartContainerRef}
-			>
+			<Overlay show={showCart} placement="left" target={target} container={shoppingCartContainerRef}>
 				<Popover id={`popover`} className={styles["popover-cart"]}>
 					<Popover.Body className={styles["popover-cart-body"]}>
-						{store.products.length === 0 ? (
+						{productsInCart.length === 0 ? (
 							<div className={"cart-empty-container"}>
 								<strong>Your cart is empty!</strong>
 								<p>Try to add a product first</p>
 							</div>
 						) : (
 							<div className={styles["cart-products-container"]}>
-								{store.products.map((product, index) => (
-									<div
-										className={styles["cart-product"]}
-										key={index}
-									>
-										<div
-											className={styles["product-image"]}
-										>
+								{productsInCart.map((product, index) => (
+									<div className={styles["cart-product"]} key={index}>
+										<div className={styles["product-image"]}>
 											{" "}
-											<img
-												className={
-													styles["product-image"]
-												}
-												src={`./product-images/${product.productImage}`}
-											/>
+											<img className={styles["product-image"]} src={`./product-images/${product.productImage}`} />
 										</div>
-										<div
-											className={
-												styles["product-details"]
-											}
-										>
+										<div className={styles["product-details"]}>
 											<strong>Your t-shirt:</strong>
 											<p>{product.name}</p>
-											<div
-												className={
-													styles["product-spec"]
-												}
-											>
+											<div className={styles["product-spec"]}>
 												<p>£{product.price}</p>
-												<p>
-													Size: {product.selectedSize}
-												</p>
+												<p>Size: {product.selectedSize}</p>
 											</div>
 
-											<p
-												className={
-													styles["remove-item"]
-												}
-												onClick={removeProductClickHandler.bind(
-													null,
-													product.id
-												)}
-											>
-												<img
-													className={
-														styles["bin-image"]
-													}
-													src={`./garbage.svg`}
-												/>
-												<span
-													className={
-														styles["remove-text"]
-													}
-												>
-													Remove item
-												</span>
+											<p className={styles["remove-item"]} onClick={removeProductClickHandler.bind(null, product.id)}>
+												<img className={styles["bin-image"]} src={`./garbage.svg`} />
+												<span className={styles["remove-text"]}>Remove item</span>
 											</p>
 										</div>
 									</div>
 								))}
 								<div className={styles["total-price"]}>
 									<p>Total price</p>
-									<strong>£{sumTotal(store.products)}</strong>
+									<strong>£{sumTotal(productsInCart)}</strong>
 								</div>
-								<div
-									className={
-										styles["checkout-button-container"]
-									}
-								>
+								<div className={styles["checkout-button-container"]}>
 									<Link href="/checkout">
-										<Button
-											className={styles["checkout-btn"]}
-										>
-											Checkout
-										</Button>
+										<Button className={styles["checkout-btn"]}>Checkout</Button>
 									</Link>
 								</div>
 							</div>
@@ -176,27 +128,10 @@ export default function Cart() {
 			</Overlay>
 
 			<div className={styles["delivery-details"]}>
-				<h3 className={styles["delivery-title"]}>
-					Deliveries in all UK!
-				</h3>
-				<p>
-					We delivery only in UK, and it can take up to 6 working
-					days. The shipping cost is included with our t-shirts
-					prices! If we do not have the item you chosen in stock, the
-					delivery can take longer. Get yourself this amazing Japanese
-					style T-Shirt designed for rebel girls.
-				</p>
-				<b>
-					Machine wash cold (30°C) - do not bleach - do not tumble dry
-					- iron low - do not dry clean -
-				</b>
-				<p>
-					You can order up to 5 items from this website. If you would
-					like to order more items or ask something to us, please fill
-					the form below, or send us an email at
-					info@moshimoshiproject.co.uk. Panino and Mai are super happy
-					to answer all your questions!
-				</p>
+				<h3 className={styles["delivery-title"]}>Deliveries in all UK!</h3>
+				<p>We delivery only in UK, and it can take up to 6 working days. The shipping cost is included with our t-shirts prices! If we do not have the item you chosen in stock, the delivery can take longer. Get yourself this amazing Japanese style T-Shirt designed for rebel girls.</p>
+				<b>Machine wash cold (30°C) - do not bleach - do not tumble dry - iron low - do not dry clean -</b>
+				<p>You can order up to 5 items from this website. If you would like to order more items or ask something to us, please fill the form below, or send us an email at info@moshimoshiproject.co.uk. Panino and Mai are super happy to answer all your questions!</p>
 			</div>
 		</div>
 	);

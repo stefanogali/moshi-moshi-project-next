@@ -10,19 +10,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-export default function Card({
-	id,
-	name,
-	productImage,
-	productShowImage,
-	index,
-	description,
-	availability,
-	material,
-	shortDescription,
-	price,
-	isActive,
-}) {
+export default function Card({id, name, productImage, productShowImage, index, description, availability, material, shortDescription, price, isActive}) {
 	// frontend fetch
 	// const getData = async () => {
 	// 	const res = await fetch("http://localhost:3000/api/products", {
@@ -52,22 +40,12 @@ export default function Card({
 		setIsTableVisible(true);
 	};
 
-	console.log("rendering card");
-
 	return (
 		<Col lg={4} className={styles["products-container"]}>
 			<div className={styles["product-container"]}>
 				<div className={styles["image-container"]}>
-					<img
-						className={styles["product-image"]}
-						src={`./product-images/${productImage}`}
-						onClick={productClickHandler}
-					/>
-					<Modal
-						show={showModal}
-						onHide={handleClose}
-						className={styles["modal-products"]}
-					>
+					<img className={styles["product-image"]} src={`./product-images/${productImage}`} onClick={productClickHandler} />
+					<Modal show={showModal} onHide={handleClose} className={styles["modal-products"]}>
 						<Modal.Header closeButton>
 							<Modal.Title>{name}</Modal.Title>
 						</Modal.Header>
@@ -77,197 +55,51 @@ export default function Card({
 									lg={isImageExpanded ? 12 : 4}
 									className={styles["expandable-column"]}
 									onTransitionEnd={(e) => {
-										if (
-											e.propertyName === "width" &&
-											isImageExpanded
-										) {
+										if (e.propertyName === "width" && isImageExpanded) {
 											setIsTableVisible(false);
 										} else {
 											setIsTableVisible(true);
 										}
 									}}
 								>
-									<div
-										className={
-											styles[
-												"modal-product-image-container"
-											]
-										}
-									>
-										<img
-											className={
-												styles["modal-product-image"]
-											}
-											src={`./product-images/${productShowImage}`}
-										/>
-										<img
-											className={
-												styles["expand-reduce-image"]
-											}
-											src={`./${
-												isImageExpanded
-													? "collapse-arrow.svg"
-													: "expand-arrow.svg"
-											}`}
-											onClick={() =>
-												setIsImageExpanded(
-													(prev) => !prev
-												)
-											}
-										/>
+									<div className={styles["modal-product-image-container"]}>
+										<img className={styles["modal-product-image"]} src={`./product-images/${productShowImage}`} />
+										<img className={styles["expand-reduce-image"]} src={`./${isImageExpanded ? "collapse-arrow.svg" : "expand-arrow.svg"}`} onClick={() => setIsImageExpanded((prev) => !prev)} />
 									</div>
 								</Col>
 								{isTableVisible && !isImageExpanded && (
-									<Col
-										lg={8}
-										className={styles["expandable-column"]}
-									>
-										<div
-											className={
-												styles["modal-table-container"]
-											}
-										>
+									<Col lg={8} className={styles["expandable-column"]}>
+										<div className={styles["modal-table-container"]}>
 											<table>
 												<tbody>
 													<tr>
 														<th></th>
-														<th
-															className={
-																styles[
-																	"modal-table-header"
-																]
-															}
-														>
-															Chest Width
-														</th>
-														<th
-															className={
-																styles[
-																	"modal-table-header"
-																]
-															}
-														>
-															Shirt Length
-														</th>
-														<th
-															className={
-																styles[
-																	"modal-table-header"
-																]
-															}
-														>
-															Sleeve Length
-														</th>
+														<th className={styles["modal-table-header"]}>Chest Width</th>
+														<th className={styles["modal-table-header"]}>Shirt Length</th>
+														<th className={styles["modal-table-header"]}>Sleeve Length</th>
 													</tr>
 													<tr>
-														<th>
-															{
-																tshirtSpecs[
-																	index
-																].specs[0].size
-															}
-														</th>
-														<td>
-															{
-																tshirtSpecs[
-																	index
-																].specs[0]
-																	.chestWidth
-															}
-														</td>
-														<td>
-															{
-																tshirtSpecs[
-																	index
-																].specs[0]
-																	.shirtLength
-															}
-														</td>
-														<td>
-															{
-																tshirtSpecs[
-																	index
-																].specs[0]
-																	.sleeveLength
-															}
-														</td>
+														<th>{tshirtSpecs[index].specs[0].size}</th>
+														<td>{tshirtSpecs[index].specs[0].chestWidth}</td>
+														<td>{tshirtSpecs[index].specs[0].shirtLength}</td>
+														<td>{tshirtSpecs[index].specs[0].sleeveLength}</td>
 													</tr>
 													<tr>
-														<th>
-															{
-																tshirtSpecs[
-																	index
-																].specs[1].size
-															}
-														</th>
-														<td>
-															{
-																tshirtSpecs[
-																	index
-																].specs[1]
-																	.chestWidth
-															}
-														</td>
-														<td>
-															{
-																tshirtSpecs[
-																	index
-																].specs[1]
-																	.shirtLength
-															}
-														</td>
-														<td>
-															{
-																tshirtSpecs[
-																	index
-																].specs[1]
-																	.sleeveLength
-															}
-														</td>
+														<th>{tshirtSpecs[index].specs[1].size}</th>
+														<td>{tshirtSpecs[index].specs[1].chestWidth}</td>
+														<td>{tshirtSpecs[index].specs[1].shirtLength}</td>
+														<td>{tshirtSpecs[index].specs[1].sleeveLength}</td>
 													</tr>
 													<tr>
-														<th>
-															{
-																tshirtSpecs[
-																	index
-																].specs[2].size
-															}
-														</th>
-														<td>
-															{
-																tshirtSpecs[
-																	index
-																].specs[2]
-																	.chestWidth
-															}
-														</td>
-														<td>
-															{
-																tshirtSpecs[
-																	index
-																].specs[2]
-																	.shirtLength
-															}
-														</td>
-														<td>
-															{
-																tshirtSpecs[
-																	index
-																].specs[2]
-																	.sleeveLength
-															}
-														</td>
+														<th>{tshirtSpecs[index].specs[2].size}</th>
+														<td>{tshirtSpecs[index].specs[2].chestWidth}</td>
+														<td>{tshirtSpecs[index].specs[2].shirtLength}</td>
+														<td>{tshirtSpecs[index].specs[2].sleeveLength}</td>
 													</tr>
 												</tbody>
 											</table>
 										</div>
-										<p
-											className={
-												styles[
-													"modal-product-definition"
-												]
-											}
-										>
+										<p className={styles["modal-product-definition"]}>
 											<b>Material: </b>
 											{material}
 										</p>
@@ -284,9 +116,7 @@ export default function Card({
 				</div>
 				<div className={styles["product-specs"]}>
 					<h4 className={styles["product-name"]}>{name}</h4>
-					<h5 className={styles["product-description"]}>
-						{description}
-					</h5>
+					<h5 className={styles["product-description"]}>{description}</h5>
 					<p className={styles["product-definition"]}>
 						{material} {shortDescription}
 					</p>
@@ -306,10 +136,7 @@ export default function Card({
 										{availability.map((item, index) => {
 											if (item.availability) {
 												return (
-													<option
-														key={index}
-														value={item.size}
-													>
+													<option key={index} value={item.size}>
 														{item.size}
 													</option>
 												);
@@ -318,25 +145,19 @@ export default function Card({
 									</Form.Select>
 								</div>
 								<div className={styles["price"]}>
-									<h4 className={styles["price-amount"]}>
-										£{price}
-									</h4>
+									<h4 className={styles["price-amount"]}>£{price}</h4>
 								</div>
 							</div>
 						</>
 					) : (
-						<p className={styles["outstock-text"]}>
-							Temporarily out stock...back soon!!
-						</p>
+						<p className={styles["outstock-text"]}>Temporarily out stock...back soon!!</p>
 					)}
 					<AddToCartBtn
 						isActive={isActive}
-						productImage={productImage}
-						id={id}
+						productImage={productImage} id={id}
 						selectedSize={selectedSize}
 						price={price}
-						name={name}
-					/>
+						name={name} />
 				</div>
 			</div>
 		</Col>

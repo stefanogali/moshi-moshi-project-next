@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@next/font": "^13.3.0",
+    "@paypal/checkout-server-sdk": "^1.0.3",
+    "@paypal/react-paypal-js": "^8.0.0",
     "bootstrap": "^5.2.3",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
@@ -26,6 +28,7 @@
     "tabWidth": 4,
     "useTabs": true,
     "semi": true,
-    "bracketSpacing": false
+    "bracketSpacing": false,
+    "printWidth": 300
   }
 }

@@ -1,0 +1,4 @@
+{
+    "prettier.printWidth": 300,
+    "prettier.proseWrap": "never"
+}
