@@ -12,13 +12,7 @@ export default async function Home() {
 	return (
 		<main>
 			<div className={productsContainerStyles["products-main"]}>
-				<ProductsContainer
-					className={
-						productsContainerStyles["home-products-container"]
-					}
-					rowClassName={productsContainerStyles["products-row"]}
-					products={products}
-				></ProductsContainer>
+				<ProductsContainer className={productsContainerStyles["home-products-container"]} rowClassName={productsContainerStyles["products-row"]} products={products}></ProductsContainer>
 			</div>
 			<About />
 			<ContactForm />

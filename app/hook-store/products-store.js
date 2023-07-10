@@ -4,10 +4,9 @@ import {initStore} from "./store";
 
 const setLocalStorage = (products) => {
 	//set products in localstore object
-	//products gonna disappear in cart after 5 days after been added
+	//products gonna disappear in cart after 2 days after been added
 	const expiryDate = new Date();
-	expiryDate.setDate(expiryDate.getDate() + 5);
-	console.log(expiryDate);
+	expiryDate.setDate(expiryDate.getDate() + 2);
 
 	window.localStorage.setItem(
 		"cartProducts",
@@ -57,6 +56,11 @@ const configureStore = () => {
 				1
 			);
 			setLocalStorage(updatedProducts);
+			return {products: updatedProducts};
+		},
+		CLEAR_CART: () => {
+			updatedProducts = [];
+			itemsInCart = 0;
 			return {products: updatedProducts};
 		},
 	};

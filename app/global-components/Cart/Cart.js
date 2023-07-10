@@ -59,6 +59,7 @@ export default function Cart() {
 	useEffect(() => {
 		let productsFromLocalStorage = window.localStorage.getItem("cartProducts");
 		productsFromLocalStorage = JSON.parse(productsFromLocalStorage);
+
 		if (new Date().getTime() > Date.parse(productsFromLocalStorage?.expiry)) {
 			window.localStorage.removeItem("cartProducts");
 			setProductsInCart([]);

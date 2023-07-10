@@ -6,8 +6,8 @@ export async function POST(request) {
 
 	try {
 		const captureData = await paypal.capturePayment(data.orderID, data.cart);
-		return NextResponse.json(captureData);
+		return NextResponse.json({message: "Transation executed successfully", status: 200}, {status: 200});
 	} catch (err) {
-		return NextResponse.json({errorfromste: err.message}, {status: 500});
+		return NextResponse.json({error: "Internal Server Error"}, {status: 500});
 	}
 }

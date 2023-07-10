@@ -1,5 +1,7 @@
 "use client";
 
+import {useRouter} from "next/navigation";
+import {useEffect} from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -7,6 +9,7 @@ import Cart from "../Cart/Cart";
 import Card from "../Card/Card";
 
 export default function ProductsContainer({className, rowClassName, products}) {
+	const router = useRouter();
 	// frontend fetch
 	// const getData = async () => {
 	// 	const res = await fetch("http://localhost:3000/api/products", {
@@ -20,6 +23,12 @@ export default function ProductsContainer({className, rowClassName, products}) {
 
 	// getData();
 	// console.log("products in bootstrap container", products);
+
+	// console.log("products", products);
+
+	useEffect(() => {
+		router.refresh();
+	}, []);
 
 	return (
 		<Container className={className} id="products">

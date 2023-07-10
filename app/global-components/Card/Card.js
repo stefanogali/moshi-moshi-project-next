@@ -11,24 +11,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 export default function Card({id, name, productImage, productShowImage, index, description, availability, material, shortDescription, price, isActive}) {
-	// frontend fetch
-	// const getData = async () => {
-	// 	const res = await fetch("http://localhost:3000/api/products", {
-	// 		method: "GET",
-	// 	});
-
-	// 	const data = await res.json();
-	// 	console.log("data", data);
-	// 	return await data;
-	// };
-
-	// getData();
-	// console.log("products in bootstrap container", products);
-
 	const [showModal, setShowModal] = useState(false);
 	const [isImageExpanded, setIsImageExpanded] = useState(false);
 	const [isTableVisible, setIsTableVisible] = useState(true);
-	const [selectedSize, setSelectedSize] = useState(availability[0].size);
+	const [selectedSize, setSelectedSize] = useState(availability[availability.findIndex((element) => element.availability >= 1)]?.size);
 
 	const productClickHandler = () => {
 		setShowModal(true);
@@ -128,7 +114,6 @@ export default function Card({id, name, productImage, productShowImage, index, d
 										size="sm"
 										aria-label="Select t-shirt size"
 										onChange={(e) => {
-											console.log(e.target.value);
 											setSelectedSize(e.target.value);
 										}}
 										className={styles["size-select"]}
@@ -152,12 +137,7 @@ export default function Card({id, name, productImage, productShowImage, index, d
 					) : (
 						<p className={styles["outstock-text"]}>Temporarily out stock...back soon!!</p>
 					)}
-					<AddToCartBtn
-						isActive={isActive}
-						productImage={productImage} id={id}
-						selectedSize={selectedSize}
-						price={price}
-						name={name} />
+					<AddToCartBtn isActive={isActive} productImage={productImage} id={id} selectedSize={selectedSize} price={price} name={name} />
 				</div>
 			</div>
 		</Col>

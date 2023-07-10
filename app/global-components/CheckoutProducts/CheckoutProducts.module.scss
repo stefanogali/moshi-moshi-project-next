@@ -34,4 +34,16 @@
 			padding: 2rem 0;
 		}
 	}
+	.row-transaction-error,
+	.row-transaction-success {
+		margin-top: 2rem;
+		text-align: center;
+	}
+	.row-transaction-success {
+		.emoji-flipped {
+			transform: scale(-1, 1);
+			width: fit-content;
+			display: inline-flex;
+		}
+	}
 }

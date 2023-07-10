@@ -1,10 +1,13 @@
 import {PayPalButtons} from "@paypal/react-paypal-js";
+import {useStore} from "@/app/hook-store/store";
 
-export default function PaypalButtons({products}) {
+export default function PaypalButtons({products, setIsPaypalError, setIsTransactionSuccess, setIsConfettiVisible}) {
+	const dispatch = useStore()[1];
+
 	const cart = products.map((obj) => {
 		return {name: obj.name, description: obj.selectedSize, id: obj.id};
 	});
-	console.log("cart", cart);
+
 	const createOrder = (data) => {
 		// Order is created on the server and the order id is returned
 		return (
@@ -26,8 +29,6 @@ export default function PaypalButtons({products}) {
 		);
 	};
 	const onApprove = (data) => {
-		console.log("entered on apporve function");
-		console.log("cart", cart);
 		// Order is captured on the server and the response is returned to the browser
 		return fetch("http://localhost:3000/api/capture-paypal-order", {
 			method: "POST",
@@ -38,7 +39,32 @@ export default function PaypalButtons({products}) {
 				orderID: data.orderID,
 				cart: cart,
 			}),
-		}).then((response) => response.json());
+		})
+			.then((response) => response.json())
+			.then((responseStatus) => {
+				const {message, status} = responseStatus;
+				if (status === 200) {
+					setIsTransactionSuccess(true);
+					setIsConfettiVisible(true);
+				} else {
+					setIsPaypalError(true);
+				}
+				// remove everything from cart
+				window.localStorage.removeItem("cartProducts");
+				dispatch("CLEAR_CART");
+			});
 	};
-	return <PayPalButtons createOrder={(data, actions) => createOrder(data, actions)} onApprove={(data, actions, cart) => onApprove(data, actions, cart)} />;
+	return (
+		<>
+			<PayPalButtons
+				createOrder={(data, actions) => createOrder(data, actions)}
+				onApprove={(data, actions) => onApprove(data, actions)}
+				onError={(error) => {
+					setIsPaypalError(true);
+					window.localStorage.removeItem("cartProducts");
+					dispatch("CLEAR_CART");
+				}}
+			/>
+		</>
+	);
 }

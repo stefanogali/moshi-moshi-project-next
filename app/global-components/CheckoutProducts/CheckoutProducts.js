@@ -1,10 +1,14 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
 import {useState, useEffect} from "react";
+import Link from "next/link";
+import {usePathname} from "next/navigation";
 import {useStore} from "@/app/hook-store/store";
 import {sumTotal} from "@/helper-functions/helpers";
 import CardProductCheckout from "../CardProductCheckout/CardProductCheckout";
+const Confetti = dynamic(() => import("../Confetti/Confetti"), {ssr: false});
 import CheckoutSummary from "../CheckoutSummary/CheckoutSummary";
 import PaypalButtons from "../PaypalButtons/PaypalButtons";
 import Container from "react-bootstrap/Container";
@@ -20,8 +24,12 @@ const initialOptions = {
 
 export default function CheckoutProducts() {
 	const [checkoutProducts, setCheckoutProducts] = useState([]);
+	const [isPaypalError, setIsPaypalError] = useState(false);
+	const [isConfettiVisible, setIsConfettiVisible] = useState(false);
+	const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
+
+	const pathname = usePathname();
 	const store = useStore()[0];
-	console.log("store", store);
 
 	useEffect(() => {
 		let productsFromLocalStorage = window.localStorage.getItem("cartProducts");
@@ -41,10 +49,14 @@ export default function CheckoutProducts() {
 		}
 		setCheckoutProducts(store.products);
 	}, []);
-	// console.log("checkoutProducts", checkoutProducts);
+
+	useEffect(() => {
+		setIsConfettiVisible(false);
+	}, [pathname]);
 
 	return (
 		<PayPalScriptProvider options={initialOptions}>
+			{isConfettiVisible && <Confetti />}
 			<div className={styles["products-checkout-container"]}>
 				<Container>
 					<CheckoutSummary totalAmount={sumTotal(checkoutProducts)} />
@@ -55,17 +67,40 @@ export default function CheckoutProducts() {
 							})}
 						</Col>
 					</Row>
-					<Row className={styles["row-paypal-buttons"]}>
-						<Col xs={4} className={styles["paypal-button-container"]}>
-							<PaypalButtons products={checkoutProducts} />
-						</Col>
-					</Row>
-					<Row className={styles["row-checkout-text"]}>
-						<Col xs={8}>
-							<p>Please click on the button below to place your order.</p>
-							<p>You can pay using your PayPal account or your Credit/Debit card. You will add your delivery details during the checkout process.</p>
-						</Col>
-					</Row>
+					{!isPaypalError && !isTransactionSuccess ? (
+						<>
+							<Row className={styles["row-paypal-buttons"]}>
+								<Col xs={4} className={styles["paypal-button-container"]}>
+									<PaypalButtons products={checkoutProducts} setIsPaypalError={setIsPaypalError} setIsTransactionSuccess={setIsTransactionSuccess} setIsConfettiVisible={setIsConfettiVisible} />
+								</Col>
+							</Row>
+
+							<Row className={styles["row-checkout-text"]}>
+								<Col xs={8}>
+									<p>Please click on the button below to place your order.</p>
+									<p>You can pay using your PayPal account or your Credit/Debit card. You will add your delivery details during the checkout process.</p>
+								</Col>
+							</Row>
+						</>
+					) : isTransactionSuccess ? (
+						<Row className={styles["row-transaction-success"]}>
+							<Col>
+								<h3>
+									<span>&#x1F4E2;</span> Thanks a lot for your order! <span className={styles["emoji-flipped"]}>&#x1F4E2;</span>
+								</h3>
+								<p>Your items will be shipped soon, and should be with you in no more than 6 working days!</p>
+							</Col>
+						</Row>
+					) : (
+						<Row className={styles["row-transaction-error"]}>
+							<Col>
+								<h3>Oooooops....something went wrong here!</h3>
+								<p>
+									Please go back to the <Link href="/">home page</Link> and try again, or send us an email at info@moshimoshiproject.co.uk and we will take care of it!
+								</p>
+							</Col>
+						</Row>
+					)}
 				</Container>
 			</div>
 		</PayPalScriptProvider>
