@@ -49,6 +49,11 @@
 	.popover-cart {
 		.popover-cart-body {
 			max-width: 500px;
+			.popover-close-btn {
+				position: absolute;
+				top: 0.6rem;
+				right: 0.6rem;
+			}
 			.cart-products-container {
 				display: flex;
 				align-items: center;

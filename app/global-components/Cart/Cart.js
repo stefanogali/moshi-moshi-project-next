@@ -5,6 +5,7 @@ import Link from "next/link";
 import Popover from "react-bootstrap/Popover";
 import Overlay from "react-bootstrap/Overlay";
 import Button from "react-bootstrap/Button";
+import CloseButton from "react-bootstrap/CloseButton";
 import styles from "./Cart.module.scss";
 
 export default function Cart() {
@@ -84,6 +85,12 @@ export default function Cart() {
 			<Overlay rootClose show={showCart} placement="left" target={target} container={shoppingCartContainerRef}>
 				<Popover id={`popover`} className={styles["popover-cart"]}>
 					<Popover.Body className={styles["popover-cart-body"]}>
+						<CloseButton
+							className={styles["popover-close-btn"]}
+							onClick={() => {
+								setShowCart(false);
+							}}
+						/>
 						{productsInCart.length === 0 ? (
 							<div className={"cart-empty-container"}>
 								<strong>Your cart is empty!</strong>
