@@ -1,6 +1,8 @@
 .footer {
+	position: relative;
 	text-align: center;
 	padding-bottom: 3.1rem;
+	z-index: 9;
 	.copyright,
 	.photos-author,
 	.returns-title,

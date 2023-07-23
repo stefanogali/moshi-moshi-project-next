@@ -60,8 +60,8 @@ export default function CheckoutProducts() {
 			<div className={styles["products-checkout-container"]}>
 				<Container>
 					<CheckoutSummary totalAmount={sumTotal(checkoutProducts)} />
-					<Row>
-						<Col>
+					<Row className="justify-content-center">
+						<Col xs={12} md={8}>
 							{checkoutProducts.map((product, index) => {
 								return <CardProductCheckout key={index} productImage={product.productImage} productName={product.name} size={product.selectedSize} />;
 							})}
@@ -69,18 +69,17 @@ export default function CheckoutProducts() {
 					</Row>
 					{!isPaypalError && !isTransactionSuccess ? (
 						<>
-							<Row className={styles["row-paypal-buttons"]}>
-								<Col xs={4} className={styles["paypal-button-container"]}>
+							<div className={styles["row-paypal-buttons"]}>
+								<div className={styles["paypal-button-container"]}>
 									<PaypalButtons products={checkoutProducts} setIsPaypalError={setIsPaypalError} setIsTransactionSuccess={setIsTransactionSuccess} setIsConfettiVisible={setIsConfettiVisible} />
-								</Col>
-							</Row>
+								</div>
+							</div>
 
-							<Row className={styles["row-checkout-text"]}>
-								<Col xs={8}>
-									<p>Please click on the button below to place your order.</p>
+							<div className={styles["row-checkout-text"]}>
+								<div>
 									<p>You can pay using your PayPal account or your Credit/Debit card. You will add your delivery details during the checkout process.</p>
-								</Col>
-							</Row>
+								</div>
+							</div>
 						</>
 					) : isTransactionSuccess ? (
 						<Row className={styles["row-transaction-success"]}>

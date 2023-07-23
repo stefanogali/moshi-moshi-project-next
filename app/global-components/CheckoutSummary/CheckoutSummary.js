@@ -10,7 +10,7 @@ import styles from "./CheckoutSummary.module.scss";
 export default function CheckoutSummary({totalAmount}) {
 	return (
 		<Row className={styles["row-checkout-summary"]}>
-			<Col xs={6}>
+			<Col xs={12} md={6}>
 				<ul>
 					<li>
 						<h5>Sub-total</h5>

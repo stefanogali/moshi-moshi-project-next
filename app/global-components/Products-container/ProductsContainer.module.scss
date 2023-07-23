@@ -25,4 +25,30 @@
 	.products-row {
 		--bs-gutter-x: 2rem;
 	}
+	.visible {
+		animation: fade-in 0.4s forwards;
+	}
+	.hidden {
+		animation: fade-out 0.4s forwards;
+	}
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fade-out {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
 }

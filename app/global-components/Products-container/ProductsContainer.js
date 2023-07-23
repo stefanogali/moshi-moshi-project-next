@@ -1,37 +1,26 @@
 "use client";
 
 import {useRouter} from "next/navigation";
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
+import {useIsVisible} from "@/custom-hooks/useIsVisible";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Cart from "../Cart/Cart";
 import Card from "../Card/Card";
+import styles from "./ProductsContainer.module.scss";
 
 export default function ProductsContainer({className, rowClassName, products}) {
 	const router = useRouter();
-	// frontend fetch
-	// const getData = async () => {
-	// 	const res = await fetch("http://localhost:3000/api/products", {
-	// 		method: "GET",
-	// 	});
-
-	// 	const data = await res.json();
-	// 	console.log("data", data);
-	// 	return await data;
-	// };
-
-	// getData();
-	// console.log("products in bootstrap container", products);
-
-	// console.log("products", products);
+	const ref = useRef();
+	const isVisible = useIsVisible(ref);
 
 	useEffect(() => {
 		router.refresh();
 	}, []);
 
 	return (
-		<div id="products">
+		<div id="products" ref={ref}>
 			<Container className={className}>
 				<Row>
 					<Col lg={products.length > 0 ? 9 : 12}>
@@ -63,7 +52,7 @@ export default function ProductsContainer({className, rowClassName, products}) {
 						</Row>
 					</Col>
 					{products.length > 0 && (
-						<Col lg={3}>
+						<Col className={isVisible ? styles.visible : styles.hidden} lg={3}>
 							<Cart />
 						</Col>
 					)}
