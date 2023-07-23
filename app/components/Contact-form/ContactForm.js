@@ -46,7 +46,7 @@ export default function ContactForm() {
 				errors.push({errorField: "name", errorValue: "Invalid Name"});
 			}
 
-			if (item.nameOfField === "email" && (item.value.length < 4 || !item.value.indexOf("@") || item.value.length > 60)) {
+			if (item.nameOfField === "email" && (item.value.length < 4 || item.value.indexOf("@") < 0 || item.value.length > 60)) {
 				errors.push({errorField: "email", errorValue: "Invalid Email"});
 			}
 
@@ -167,8 +167,8 @@ export default function ContactForm() {
 
 	return (
 		<>
-			<div className={styles["contact-main"]}>
-				<Container className={styles["form-container"]} id="contacts">
+			<div className={styles["contact-main"]} id="contacts">
+				<Container className={styles["form-container"]}>
 					<Row>
 						<Col>
 							<h2 className={styles.title}>Contact us!</h2>
@@ -187,7 +187,7 @@ export default function ContactForm() {
 											</div>
 											{error.errorFields.length > 0 && (
 												<div className={styles["input-form-error"]}>
-													<p>
+													<p className={styles["error-detail"]}>
 														{error.errorFields.map((error) => {
 															if (error.errorField === "name") {
 																return error.errorValue;
@@ -202,7 +202,7 @@ export default function ContactForm() {
 												<Form.Control type="text" id="email" name="email" placeholder="Your email" className={styles["form-input"]} value={email} onChange={(event) => onChangeHandler(event)} />
 												{error.errorFields.length > 0 && (
 													<div className={styles["input-form-error"]}>
-														<p>
+														<p className={styles["error-detail"]}>
 															{error.errorFields.map((error) => {
 																if (error.errorField === "email") {
 																	return error.errorValue;
@@ -219,17 +219,17 @@ export default function ContactForm() {
 									<div className={`${styles["form-element"]}${error.errorAnimation.includes("message") ? ` ${styles.shake}` : ""}`}>
 										<Form.Control as="textarea" rows={10} placeholder="Your message" className={styles["form-textarea"]} id="message" name="message" type="text" value={message} onChange={(event) => onChangeHandler(event)} />
 										{error.errorFields.length > 0 && (
-											<div className={styles["input-form-error"]}>
-												<p>
+											<div className={`${styles["input-form-error"]} ${styles["input-textarea"]}`}>
+												<p className={styles["error-detail"]}>
 													{error.errorFields.map((error) => {
 														if (error.errorField === "message") {
 															return error.errorValue;
 														}
 													})}
 												</p>
-												<p className={styles["message-info"]}>Max 600 characters</p>
 											</div>
 										)}
+										<p className={styles["message-info"]}>Max 600 characters</p>
 									</div>
 								</Form.Group>
 								{isLoading ? (

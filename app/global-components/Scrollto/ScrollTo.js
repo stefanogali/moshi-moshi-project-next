@@ -1,30 +1,23 @@
-import {scrollTo} from "../../../helper-functions/animate-scroll";
+import {useRouter, usePathname} from "next/navigation";
+import {scrollTo} from "@/helper-functions/scrollTo";
 
-const ScrollTo = ({
-	toId,
-	toRef,
-	className,
-	duration,
-	children,
-	setFocus,
-	detractFromTop,
-	router,
-}) => {
-	const clickHandler = () => {
-		return scrollTo({
-			id: toId,
-			ref: toRef,
-			duration,
-			setFocus,
-			detractFromTop,
-			router,
-		});
+const ScrollTo = ({toId, toRef, duration, className, children}) => {
+	const router = useRouter();
+	const pathname = usePathname();
+
+	const handleClick = () => {
+		if (pathname != "/") {
+			router.push(`/#${toId}`);
+			return;
+		}
+
+		return scrollTo({id: toId, ref: toRef, duration});
 	};
 
 	return (
-		<div className={className} onClick={clickHandler}>
+		<li onClick={handleClick} className={className}>
 			{children}
-		</div>
+		</li>
 	);
 };
 

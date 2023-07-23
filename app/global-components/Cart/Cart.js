@@ -13,7 +13,6 @@ export default function Cart() {
 	const [target, setTarget] = useState(null);
 	const [productsInCart, setProductsInCart] = useState([]);
 	const shoppingCartContainerRef = useRef();
-	const shoppingCartRef = useRef();
 	const [store, dispatch] = useStore();
 
 	const clickHandler = (event) => {
@@ -78,11 +77,11 @@ export default function Cart() {
 
 	return (
 		<div className={`${styles["shopping-cart"]} ${attach ? ` ${styles.fixed}` : ""}`} ref={shoppingCartContainerRef}>
-			<div className={styles["cart-icon-container"]} onClick={clickHandler} ref={shoppingCartRef}>
+			<div className={styles["cart-icon-container"]} onClick={clickHandler}>
 				<img className={styles["cart-icon"]} src={`./cart.png`} />
 				{productsInCart.length ? <div className={styles["number-items-in-cart"]}>{productsInCart.length}</div> : null}
 			</div>
-			<Overlay show={showCart} placement="left" target={target} container={shoppingCartContainerRef}>
+			<Overlay rootClose show={showCart} placement="left" target={target} container={shoppingCartContainerRef}>
 				<Popover id={`popover`} className={styles["popover-cart"]}>
 					<Popover.Body className={styles["popover-cart-body"]}>
 						{productsInCart.length === 0 ? (

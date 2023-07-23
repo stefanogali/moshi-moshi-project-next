@@ -35,6 +35,9 @@
 				border-radius: 0.6rem;
 				resize: none;
 			}
+			.message-info {
+				font-size: 0.8rem;
+			}
 			.send-message-btn {
 				background-color: $button-color;
 				border: none;
@@ -45,6 +48,25 @@
 				padding-right: 1rem;
 				border-radius: 1.25rem;
 			}
+			.input-form-error {
+				&.input-textarea .error-detail {
+					margin-bottom: 0;
+				}
+				.error-detail {
+					color: red;
+					font-size: 0.8rem;
+				}
+			}
+		}
+	}
+	.contact-form-result-container {
+		margin-top: 0.6rem;
+		.contact-form-result.success {
+			color: #75d1b2;
+		}
+
+		.contact-form-result.failure {
+			color: red;
 		}
 	}
 }

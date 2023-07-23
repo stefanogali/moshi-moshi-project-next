@@ -23,18 +23,21 @@ export async function getProducts() {
 		values: "",
 	});
 
-	productsData.forEach((specObject) => {
-		const sizeAndAvailability = [];
-		sizesAndAvailabilityData.forEach((sizeObject) => {
-			if (specObject.id === sizeObject.shirt_id) {
-				sizeAndAvailability.push(sizeObject);
-			}
+	if (productsData.length > 0) {
+		productsData.forEach((specObject) => {
+			const sizeAndAvailability = [];
+			sizesAndAvailabilityData.forEach((sizeObject) => {
+				if (specObject.id === sizeObject.shirt_id) {
+					sizeAndAvailability.push(sizeObject);
+				}
+			});
+			// JSON conversion below to avoid warning
+			specObject.availability = sizeAndAvailability;
 		});
-		// JSON conversion below to avoid warning
-		specObject.availability = sizeAndAvailability;
-	});
 
-	return JSON.parse(JSON.stringify(productsData));
+		return JSON.parse(JSON.stringify(productsData));
+	}
+	return [];
 }
 
 export async function GET(request) {
