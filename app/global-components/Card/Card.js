@@ -31,7 +31,7 @@ export default function Card({id, name, productImage, productShowImage, index, d
 			<div className={styles["product-container"]}>
 				<div className={styles["image-container"]}>
 					<img className={styles["product-image"]} src={`./product-images/${productImage}`} onClick={productClickHandler} />
-					<Modal show={showModal} onHide={handleClose} className={styles["modal-products"]}>
+					<Modal show={showModal} fullscreen="sm-down" onHide={handleClose} className={styles["modal-products"]}>
 						<Modal.Header closeButton>
 							<Modal.Title>{name}</Modal.Title>
 						</Modal.Header>

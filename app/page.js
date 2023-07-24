@@ -6,6 +6,11 @@ import productsContainerStyles from "./global-components/Products-container/Prod
 
 import {getProducts} from "./api/products/route";
 
+export const metadata = {
+	title: "Japanese design T-Shirts | Moshi Moshi Project",
+	description: "Get your cute Japanese T-Shirt with our original designs. For girls and women fashion.",
+};
+
 export default async function Home() {
 	const products = await getProducts();
 

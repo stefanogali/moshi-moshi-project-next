@@ -1,4 +1,5 @@
 @import "../../variables.module.scss";
+@import "../../default-media-queries.scss";
 
 .products-container {
 	margin-top: 1.85rem !important;
@@ -15,15 +16,6 @@
 				width: 100%;
 				cursor: pointer;
 			}
-			// .expand-img-product {
-			// 	max-width: 20px;
-			// 	position: absolute;
-			// 	top: 0.6rem;
-			// 	right: 0.6rem;
-			// 	border: 1px solid #ffffff;
-			// 	padding: 0.2rem;
-			// 	border-radius: 0.18rem;
-			// }
 		}
 		.product-specs {
 			padding: 0 20px 20px 20px;
@@ -65,6 +57,10 @@
 }
 
 .modal-products {
+	.modal-dialog {
+		padding: 0;
+		margin: 0;
+	}
 	.expandable-column {
 		transition: width 0.3s;
 		.modal-product-image-container {
@@ -73,6 +69,7 @@
 				width: 100%;
 			}
 			.expand-reduce-image {
+				display: none;
 				position: absolute;
 				max-width: 20px;
 				top: 0.3rem;
@@ -82,6 +79,9 @@
 				border: 2px solid #ffffff;
 				box-sizing: border-box;
 				cursor: pointer;
+				@include media-breakpoint-up(lg) {
+					display: block;
+				}
 			}
 		}
 

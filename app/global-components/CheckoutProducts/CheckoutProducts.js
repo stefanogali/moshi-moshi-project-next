@@ -84,7 +84,7 @@ export default function CheckoutProducts() {
 					) : isTransactionSuccess ? (
 						<Row className={styles["row-transaction-success"]}>
 							<Col>
-								<h3>
+								<h3 className={styles["transaction-success"]}>
 									<span>&#x1F4E2;</span> Thanks a lot for your order! <span className={styles["emoji-flipped"]}>&#x1F4E2;</span>
 								</h3>
 								<p>Your items will be shipped soon, and should be with you in no more than 6 working days!</p>
