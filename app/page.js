@@ -1,3 +1,5 @@
+import Script from "next/script";
+
 import ProductsContainer from "./global-components/Products-container/ProductsContainer";
 import About from "./components/About/About";
 import ContactForm from "./components/Contact-form/ContactForm";
@@ -16,6 +18,16 @@ export default async function Home() {
 
 	return (
 		<main>
+			<Script async src="https://www.googletagmanager.com/gtag/js?id=G-TTDL5P5062"></Script>
+			<Script id="google-analytics">
+				{`
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TTDL5P5062');
+`}
+			</Script>
 			<div className={productsContainerStyles["products-main"]}>
 				<ProductsContainer className={productsContainerStyles["home-products-container"]} rowClassName={productsContainerStyles["products-row"]} products={products}></ProductsContainer>
 			</div>
