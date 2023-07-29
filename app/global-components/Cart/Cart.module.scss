@@ -61,6 +61,7 @@
 		overflow: hidden;
 		overflow-y: auto;
 		box-shadow: 9px 13px 15px 3px rgba(0, 0, 0, 0.2);
+		z-index: 99999;
 		@include media-breakpoint-up(lg) {
 			max-height: none;
 			overflow: visible;
