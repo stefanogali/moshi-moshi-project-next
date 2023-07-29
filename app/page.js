@@ -28,9 +28,9 @@ export default async function Home() {
   gtag('config', 'G-TTDL5P5062');
 `}
 			</Script>
-			{/* <div className={productsContainerStyles["products-main"]}>
+			<div className={productsContainerStyles["products-main"]}>
 				<ProductsContainer className={productsContainerStyles["home-products-container"]} rowClassName={productsContainerStyles["products-row"]} products={products}></ProductsContainer>
-			</div> */}
+			</div>
 			<About />
 			<ContactForm />
 		</main>
