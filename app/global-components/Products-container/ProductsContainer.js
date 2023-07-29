@@ -15,9 +15,9 @@ export default function ProductsContainer({className, rowClassName, products}) {
 	const ref = useRef();
 	const isVisible = useIsVisible(ref);
 
-	useEffect(() => {
-		router.refresh();
-	}, []);
+	// useEffect(() => {
+	// 	router.refresh();
+	// }, []);
 
 	return (
 		<div id="products" ref={ref}>
