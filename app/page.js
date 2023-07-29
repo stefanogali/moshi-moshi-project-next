@@ -13,6 +13,8 @@ export const metadata = {
 	description: "Get your cute Japanese T-Shirt with our original designs. For girls and women fashion.",
 };
 
+export const revalidate = 2;
+
 export default async function Home() {
 	const products = await getProducts();
 

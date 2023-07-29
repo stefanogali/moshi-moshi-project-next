@@ -11,7 +11,7 @@ export default function PaypalButtons({products, setIsPaypalError, setIsTransact
 	const createOrder = (data) => {
 		// Order is created on the server and the order id is returned
 		return (
-			fetch("http://localhost:3000/api/create-paypal-order", {
+			fetch(`${window.location.origin}/api/create-paypal-order`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -30,7 +30,7 @@ export default function PaypalButtons({products, setIsPaypalError, setIsTransact
 	};
 	const onApprove = (data) => {
 		// Order is captured on the server and the response is returned to the browser
-		return fetch("http://localhost:3000/api/capture-paypal-order", {
+		return fetch(`${window.location.origin}/api/capture-paypal-order`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

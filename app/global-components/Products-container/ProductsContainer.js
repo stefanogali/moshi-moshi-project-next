@@ -1,6 +1,5 @@
 "use client";
 
-import {useRouter} from "next/navigation";
 import {useEffect, useRef} from "react";
 import {useIsVisible} from "@/custom-hooks/useIsVisible";
 import Container from "react-bootstrap/Container";
@@ -11,13 +10,8 @@ import Card from "../Card/Card";
 import styles from "./ProductsContainer.module.scss";
 
 export default function ProductsContainer({className, rowClassName, products}) {
-	const router = useRouter();
 	const ref = useRef();
 	const isVisible = useIsVisible(ref);
-
-	// useEffect(() => {
-	// 	router.refresh();
-	// }, []);
 
 	return (
 		<div id="products" ref={ref}>
