@@ -2,7 +2,7 @@ const {CLIENT_ID, APP_SECRET} = process.env;
 import excuteQuery from "@/helper-functions/db-connection";
 
 let base = "";
-if (process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development") {
 	base = "https://api-m.sandbox.paypal.com";
 } else {
 	base = "https://api-m.paypal.com";
