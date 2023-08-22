@@ -55,7 +55,10 @@ export async function POST(request) {
 		const responseSendMail = await mailchimp.messages.send({
 			message,
 		});
-		return NextResponse.json({message: "Email sent"}, {status: 200});
+		if (responseSendMail.status === "sent") {
+			return NextResponse.json({message: "Email sent"}, {status: 200});
+		}
+		throw new Error("err");
 	} catch (error) {
 		return NextResponse.json([{errorField: "submit", errorValue: "Ooops we are sorry " + name + " but something went wrong. Please try to submit your form again."}, {status: 400}]);
 	}
