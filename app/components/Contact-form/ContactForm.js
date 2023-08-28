@@ -10,7 +10,8 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import styles from "./ContactForm.module.scss";
 
-const initialErrorState = {
+const initialFormState = {
+	isEmailSent: false,
 	errorFields: [],
 	errorAnimation: [],
 	isEmailServerError: false,
@@ -21,8 +22,9 @@ export default function ContactForm() {
 	const [email, setEmail] = useState("");
 	const [message, setMessage] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState(initialErrorState);
+	const [formResults, setFormResults] = useState(initialFormState);
 	const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+	const genericError = "Ooops something went wrong. Please try to submit again or email me at info@moshimoshiproject.co.uk";
 
 	const validateCaptcha = () => {
 		return new Promise((res, rej) => {
@@ -60,7 +62,7 @@ export default function ContactForm() {
 
 	const onChangeHandler = (event) => {
 		const formElId = event.target.id;
-		setError(initialErrorState);
+		setFormResults(initialFormState);
 		setIsFormSubmitted(false);
 
 		switch (formElId) {
@@ -97,19 +99,17 @@ export default function ContactForm() {
 		]);
 
 		if (frontendErrors.length > 0) {
-			setError((prevState) => {
-				return {
-					...prevState,
-					isEmailServerError: false,
-					errorFields: frontendErrors,
-					errorAnimation: frontendErrors.map((error) => error.errorField),
-				};
+			setFormResults({
+				isEmailSent: false,
+				isEmailServerError: false,
+				errorFields: frontendErrors,
+				errorAnimation: frontendErrors.map((error) => error.errorField),
 			});
 			return;
 		}
 		setIsLoading(true);
 
-		setError(initialErrorState);
+		setFormResults(initialFormState);
 
 		try {
 			const recaptchaToken = await validateCaptcha();
@@ -132,37 +132,41 @@ export default function ContactForm() {
 			const response = await postFormRequest.json();
 			console.log("response", response);
 
-			if (postFormRequest.status === 422) {
-				setError((prevState) => {
-					return {
-						...prevState,
-						isEmailServerError: false,
-						errorFields: response,
-						errorAnimation: response.map((error) => error.errorField),
-					};
-				});
-			}
-
-			if (postFormRequest.status === 400) {
-				setError((prevState) => {
-					return {
-						...prevState,
-						isEmailServerError: true,
-						errorFields: response,
-					};
-				});
-			}
-
-			if (postFormRequest.status === 200) {
+			if (response.status === 200) {
 				setName("");
 				setEmail("");
 				setMessage("");
+				setFormResults({
+					isEmailSent: true,
+					errorFields: [],
+					errorAnimation: [],
+					isEmailServerError: false,
+				});
+				return;
 			}
+
+			if (response.status === 422) {
+				setFormResults({
+					isEmailSent: false,
+					isEmailServerError: false,
+					errorFields: response.errors,
+					errorAnimation: response.errors.map((error) => error.errorField),
+				});
+				return;
+			}
+
+			setFormResults({
+				isEmailSent: false,
+				errorAnimation: [],
+				isEmailServerError: true,
+				errorFields: [{errorField: "submit", errorValue: response.errorValue || genericError}],
+			});
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setIsFormSubmitted(true);
+			setIsLoading(false);
 		}
-		setIsFormSubmitted(true);
-		setIsLoading(false);
 	};
 
 	return (
@@ -182,15 +186,15 @@ export default function ContactForm() {
 								<Form.Group className="mb-3">
 									<Row>
 										<Col>
-											<div className={`${styles["form-element"]}${error.errorAnimation.includes("name") ? ` ${styles.shake}` : ""}`}>
+											<div className={`${styles["form-element"]}${formResults.errorAnimation.includes("name") ? ` ${styles.shake}` : ""}`}>
 												<Form.Control type="text" id="name" name="name" placeholder="Your name" className={styles["form-input"]} value={name} onChange={(event) => onChangeHandler(event)} />
 											</div>
-											{error.errorFields.length > 0 && (
+											{formResults.errorFields.length > 0 && (
 												<div className={styles["input-form-error"]}>
 													<p className={styles["error-detail"]}>
-														{error.errorFields.map((error) => {
-															if (error.errorField === "name") {
-																return error.errorValue;
+														{formResults.errorFields.map((result) => {
+															if (result.errorField === "name") {
+																return result.errorValue;
 															}
 														})}
 													</p>
@@ -198,14 +202,14 @@ export default function ContactForm() {
 											)}
 										</Col>
 										<Col>
-											<div className={`${styles["form-element"]}${error.errorAnimation.includes("email") ? ` ${styles.shake}` : ""}`}>
+											<div className={`${styles["form-element"]}${formResults.errorAnimation.includes("email") ? ` ${styles.shake}` : ""}`}>
 												<Form.Control type="text" id="email" name="email" placeholder="Your email" className={styles["form-input"]} value={email} onChange={(event) => onChangeHandler(event)} />
-												{error.errorFields.length > 0 && (
+												{formResults.errorFields.length > 0 && (
 													<div className={styles["input-form-error"]}>
 														<p className={styles["error-detail"]}>
-															{error.errorFields.map((error) => {
-																if (error.errorField === "email") {
-																	return error.errorValue;
+															{formResults.errorFields.map((result) => {
+																if (result.errorField === "email") {
+																	return result.errorValue;
 																}
 															})}
 														</p>
@@ -216,14 +220,14 @@ export default function ContactForm() {
 									</Row>
 								</Form.Group>
 								<Form.Group className="mb-3">
-									<div className={`${styles["form-element"]}${error.errorAnimation.includes("message") ? ` ${styles.shake}` : ""}`}>
+									<div className={`${styles["form-element"]}${formResults.errorAnimation.includes("message") ? ` ${styles.shake}` : ""}`}>
 										<Form.Control as="textarea" rows={10} placeholder="Your message" className={styles["form-textarea"]} id="message" name="message" type="text" value={message} onChange={(event) => onChangeHandler(event)} />
-										{error.errorFields.length > 0 && (
+										{formResults.errorFields.length > 0 && (
 											<div className={`${styles["input-form-error"]} ${styles["input-textarea"]}`}>
 												<p className={styles["error-detail"]}>
-													{error.errorFields.map((error) => {
-														if (error.errorField === "message") {
-															return error.errorValue;
+													{formResults.errorFields.map((result) => {
+														if (result.errorField === "message") {
+															return result.errorValue;
 														}
 													})}
 												</p>
@@ -236,20 +240,20 @@ export default function ContactForm() {
 									<Spinner isContactFormLoader={true} />
 								) : (
 									<Button type="submit" className={styles["send-message-btn"]}>
-										Send it
+										Send it!
 									</Button>
 								)}
 							</Form>
 							{/* result of sending the form */}
 							<div className={styles["contact-form-result-container"]}>
-								{isFormSubmitted && error.errorFields.length === 0 ? (
+								{isFormSubmitted && formResults.errorFields.length === 0 && formResults.isEmailSent ? (
 									<div className={`${styles["contact-form-result"]} ${styles.success}`}>
 										<p>Thanks for submitting the form!</p>
 									</div>
 								) : (
-									error.isEmailServerError && (
+									formResults.isEmailServerError && (
 										<div className={`${styles["contact-form-result"]} ${styles.failure}`}>
-											<p>{error.errorFields[0].errorValue}</p>
+											<p>{formResults.errorFields[0].errorValue}</p>
 										</div>
 									)
 								)}

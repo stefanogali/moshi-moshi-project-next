@@ -1,7 +1,6 @@
 import {NextResponse} from "next/server";
 
-const mailchimpFactory = require("@mailchimp/mailchimp_transactional/src/index.js");
-const mailchimp = mailchimpFactory(process.env.SEND_EMAIL_PRIVATE_KEY);
+const mailchimp = require("@mailchimp/mailchimp_transactional")(process.env.SEND_EMAIL_PRIVATE_KEY);
 
 export async function POST(request) {
 	const requestData = await request.json();
@@ -9,6 +8,7 @@ export async function POST(request) {
 	const email = requestData.email.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 	const contactMessage = requestData.message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 	const captchaToken = requestData.token;
+	const genericError = "Ooops something went wrong. Please try to submit again, or email us at info@moshimoshiproject.co.uk";
 
 	if (!captchaToken) {
 		return NextResponse.json([{errorField: "submit", errorValue: "Ooops we are sorry but something went wrong. Please try to submit your form again."}], {status: 400});
@@ -36,7 +36,7 @@ export async function POST(request) {
 	}
 
 	if (errors.length > 0) {
-		return NextResponse.json(errors, {status: 422});
+		return NextResponse.json({errors: errors, status: 422});
 	}
 
 	const message = {
@@ -55,11 +55,11 @@ export async function POST(request) {
 		const responseSendMail = await mailchimp.messages.send({
 			message,
 		});
-		if (responseSendMail.status === "sent") {
-			return NextResponse.json({message: "Email sent"}, {status: 200});
+		if (responseSendMail[0].status === "sent") {
+			return NextResponse.json({message: "Email sent", status: 200});
 		}
 		throw new Error("err");
 	} catch (error) {
-		return NextResponse.json([{errorField: "submit", errorValue: "Ooops we are sorry " + name + " but something went wrong. Please try to submit your form again."}, {status: 400}]);
+		return NextResponse.json({errorField: "submit", errorValue: genericError, status: 400});
 	}
 }
