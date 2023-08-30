@@ -1,8 +1,14 @@
+@import "../../variables.module.scss";
+@import "../../default-media-queries.scss";
+
 .footer {
 	position: relative;
 	text-align: center;
-	padding-bottom: 3.1rem;
+	padding-bottom: 9rem;
 	z-index: 9;
+	@include media-breakpoint-up(sm) {
+		padding-bottom: 5rem;
+	}
 	.copyright,
 	.photos-author,
 	.returns-title,

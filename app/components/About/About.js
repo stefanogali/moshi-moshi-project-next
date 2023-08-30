@@ -16,7 +16,7 @@ export default function About() {
 					</Col>
 					<Col lg={8} className={styles["about-text-container"]}>
 						<p className={styles["about-text"]}>
-							Hey there!! My name is Panino and I am happy if you are visiting our website and if you like our cool stuff. I met Mai many years ago while I was traveling in &#127471;&#127477; Japan, and since then we have seen each other so many times and we&aposve always been keeping
+							Hey there!! My name is Panino and I am happy if you are visiting our website and if you like our cool stuff. I met Mai many years ago while I was traveling in &#127471;&#127477; Japan, and since then we have seen each other so many times and we&apos;ve always been keeping
 							in touch. We decided to do this project last time we met in London...the reason?? First to enjoy ourselves, and also boost &#128293; our creativity. We want to designs stuffs inspired by rock bands we really love... Gabba Gabba Hey!
 						</p>
 					</Col>

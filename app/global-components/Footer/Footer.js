@@ -3,6 +3,7 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import CookieConsent from "react-cookie-consent";
 import styles from "./Footer.module.scss";
 
 export default function Footer() {
@@ -35,6 +36,9 @@ export default function Footer() {
 					</footer>
 				</Col>
 			</Row>
+			<CookieConsent location="bottom" buttonText="Consent" cookieName="cookie_consent" style={{background: "#829b99", zIndex: "9999"}} buttonStyle={{color: "#4e503b", fontSize: "13px", borderRadius: "20px", marginTop: "0"}} expires={20}>
+				This website uses cookies to enhance the user experience.
+			</CookieConsent>
 		</Container>
 	);
 }
