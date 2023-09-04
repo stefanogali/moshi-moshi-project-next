@@ -7,18 +7,18 @@
 	&:before,
 	&:after {
 		position: absolute;
-		top: -75px;
+		top: -4.6rem;
 		left: 0;
 		display: inline-flex;
 		content: "";
 		background-image: url(/waves-bg.svg);
 		background-repeat: no-repeat;
 		width: 100%;
-		height: 83px;
+		height: 5.1rem;
 	}
 	&:after {
 		top: auto;
-		bottom: -75px;
+		bottom: -4.6rem;
 		transform: rotate(180deg);
 	}
 	.form-container {

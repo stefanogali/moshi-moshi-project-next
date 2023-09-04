@@ -7,10 +7,10 @@
 	}
 }
 .loading-spinner {
-	width: 50px;
-	height: 50px;
-	border: 10px solid #f3f3f3; /* Light grey */
-	border-top: 10px solid #383636; /* Black */
+	width: 3.1rem;
+	height: 3.1rem;
+	border: 0.6rem solid #f3f3f3; /* Light grey */
+	border-top: 0.6rem solid #383636; /* Black */
 	border-radius: 50%;
 	animation: spinner 1.5s linear infinite;
 }
@@ -19,17 +19,17 @@
 	display: grid;
 	justify-content: center;
 	align-items: center;
-	height: 350px;
+	height: 21.8rem;
 }
 
 .container-smaller {
-	height: 50px;
+	height: 3.1rem;
 	justify-content: left;
 }
 
 .container-smaller .loading-spinner {
-	width: 30px;
-	height: 30px;
-	border: 7px solid #f3f3f3; /* Light grey */
-	border-top: 7px solid #383636; /* Black */
+	width: 1.8rem;
+	height: 1.8rem;
+	border: 0.4rem solid #f3f3f3; /* Light grey */
+	border-top: 0.4rem solid #383636; /* Black */
 }

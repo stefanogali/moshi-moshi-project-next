@@ -6,14 +6,14 @@ ul.nav-list {
 	padding: 0;
 
 	.navigation-list {
-		margin-left: 20px;
+		margin-left: 1.2rem;
 		cursor: pointer;
 		display: flex;
 
 		&:before {
 			content: "•";
 			position: relative;
-			left: -10px;
+			left: -0.6rem;
 			cursor: auto;
 		}
 

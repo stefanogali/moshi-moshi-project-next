@@ -18,8 +18,8 @@
 		right: 0;
 		background-color: $button-color;
 		padding: 0.8rem;
-		border-top-left-radius: 80px;
-		border-bottom-left-radius: 80px;
+		border-top-left-radius: 5rem;
+		border-bottom-left-radius: 5rem;
 		cursor: pointer;
 		z-index: 99999;
 		@include media-breakpoint-up(lg) {
@@ -60,14 +60,14 @@
 		max-height: 15rem;
 		overflow: hidden;
 		overflow-y: auto;
-		box-shadow: 9px 13px 15px 3px rgba(0, 0, 0, 0.2);
+		box-shadow: 0.5rem 0.8rem 0.9rem 0.2rem rgba(0, 0, 0, 0.2);
 		z-index: 99999;
 		@include media-breakpoint-up(lg) {
 			max-height: none;
 			overflow: visible;
 		}
 		.popover-cart-body {
-			max-width: 500px;
+			max-width: 31.2rem;
 			.popover-close-btn {
 				position: absolute;
 				top: 0.6rem;

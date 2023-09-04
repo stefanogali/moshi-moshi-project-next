@@ -28,8 +28,8 @@ export default function ProductsContainer({className, rowClassName, products}) {
 												id={product.id}
 												index={index}
 												name={product.name}
-												productImage={`${product.name.toLowerCase().replace(/\s+/g, "").replace(/#/g, "")}.jpg`}
-												productShowImage={`${product.name.toLowerCase().replace(/\s+/g, "").replace(/#/g, "")}-show.jpg`}
+												productImage={`${product.name.toLowerCase().replace(/\s+/g, "").replace(/#/g, "")}.webp`}
+												productShowImage={`${product.name.toLowerCase().replace(/\s+/g, "").replace(/#/g, "")}-show.webp`}
 												availability={product.availability}
 												description={product.description}
 												material={product.material}

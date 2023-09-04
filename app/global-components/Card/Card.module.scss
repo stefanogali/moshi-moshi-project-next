@@ -18,13 +18,13 @@
 			}
 		}
 		.product-specs {
-			padding: 0 20px 20px 20px;
+			padding: 0 1.2rem 1.2rem 1.2rem;
 			height: 100%;
 			display: flex;
 			flex-direction: column;
 			align-items: flex-start;
 			.product-name {
-				padding-top: 10px;
+				padding-top: 0.6rem;
 				font-weight: bold;
 			}
 			.product-definition {
@@ -71,7 +71,7 @@
 			.expand-reduce-image {
 				display: none;
 				position: absolute;
-				max-width: 20px;
+				max-width: 1.2rem;
 				top: 0.3rem;
 				right: 0.3rem;
 				background-color: $button-color;

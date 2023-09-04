@@ -1,18 +1,18 @@
 .header {
-	padding: 10px 0;
+	padding: 0.6rem 0;
 	.logo-container {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		padding: 0;
 		.header-logo {
-			max-width: 80px;
+			max-width: 6.2rem;
 			height: auto;
 			transform: rotate(-3deg);
 		}
 	}
 	.logo-text-container {
-		padding: 5px 0 0 0;
+		padding: 0.3rem 0 0 0;
 		text-align: center;
 	}
 	.logo-subtext-container {
