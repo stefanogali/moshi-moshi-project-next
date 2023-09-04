@@ -1,3 +1,6 @@
+@import "../../variables.module.scss";
+@import "../../default-media-queries.scss";
+
 .row-product-checkout {
 	justify-content: center;
 	&:last-child {
@@ -29,6 +32,15 @@
 				align-items: center;
 				justify-content: center;
 				flex: 0 0 80%;
+				padding: 0 0.6rem;
+
+				h2,
+				h4 {
+					font-size: 1rem;
+					@include media-breakpoint-up(sm) {
+						font-size: 1.5rem;
+					}
+				}
 			}
 		}
 	}
