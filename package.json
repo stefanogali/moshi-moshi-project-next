@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mailchimp/mailchimp_transactional": "^1.0.50",
+    "@mailchimp/mailchimp_transactional": "^1.0.59",
     "@paypal/checkout-server-sdk": "^1.0.3",
     "@paypal/react-paypal-js": "^8.0.0",
     "bootstrap": "^5.2.3",
