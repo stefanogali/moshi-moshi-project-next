@@ -28,6 +28,9 @@
     "@types/mailchimp__mailchimp_transactional": "^1.0.9",
     "sass": "^1.61.0"
   },
+  "resolutions": {
+    "axios": "^1.6.8"
+  },
   "prettier": {
     "tabWidth": 4,
     "useTabs": true,
