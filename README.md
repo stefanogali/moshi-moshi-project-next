@@ -8,7 +8,10 @@ First, install the dependencies with
 npm install
 ```
 
-then run the development server:
+This website has been built using [React Bootstrap](https://react-bootstrap.github.io/), and it uses an SQL Database to pull products data from the DB.
+
+For the project to run correctly on your local, you need to create environment variables where these are required to pull data from the DB.
+Then you can run the development server:
 
 ```bash
 npm run dev
@@ -20,9 +23,10 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Alternatively you can run
 
-This website has been built using [React Bootstrap](https://react-bootstrap.github.io/), and it uses an SQL Database to pull products data from the DB.
+```bash
+npm run storybook
+```
 
-For the project to run correctly on your local, you need to create environment variables where these are required.
-Please feel free to use any parts of the code if you wish.
+to view client components on Storybook on [http://localhost:6006/](http://localhost:6006)
