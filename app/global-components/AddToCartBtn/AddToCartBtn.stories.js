@@ -3,6 +3,27 @@ import AddToCartBtn from "./AddToCartBtn";
 export default {
 	title: "Global Components/Add To Cart Button",
 	component: AddToCartBtn,
+	tags: ["autodocs"],
+	argTypes: {
+		index: {
+			control: false,
+		},
+		productImage: {
+			control: false,
+		},
+		selectedSize: {
+			control: false,
+		},
+		price: {
+			control: false,
+		},
+		name: {
+			control: false,
+		},
+		id: {
+			control: false,
+		},
+	},
 	decorators: [
 		(Story) => (
 			<div style={{margin: "8em"}}>

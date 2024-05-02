@@ -131,6 +131,7 @@ const products = [
 export default {
 	title: "Global Components/Display of products",
 	component: ProductsContainer,
+	tags: ["autodocs"],
 	argTypes: {
 		products: {
 			control: false,
@@ -155,6 +156,8 @@ export default {
 export const Products = {
 	args: {
 		products: products,
+		className: "row",
+		rowClassName: "col",
 	},
 	render: function Render(args) {
 		return <ProductsContainer {...args}></ProductsContainer>;

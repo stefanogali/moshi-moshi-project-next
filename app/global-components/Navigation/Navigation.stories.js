@@ -8,6 +8,7 @@ export default {
 		},
 	},
 	component: Navigation,
+	tags: ["autodocs"],
 	decorators: [
 		(Story) => (
 			<div className="container">

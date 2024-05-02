@@ -3,7 +3,7 @@ import Card from "./Card";
 export default {
 	title: "Global Components/Product card",
 	component: Card,
-
+	tags: ["autodocs"],
 	argTypes: {
 		index: {
 			control: false,

@@ -3,6 +3,7 @@ import CheckoutProductsComponent from "./CheckoutProducts";
 export default {
 	title: "Global Components/Checkout Products before payment",
 	component: CheckoutProductsComponent,
+	tags: ["autodocs"],
 
 	decorators: [
 		(Story) => (

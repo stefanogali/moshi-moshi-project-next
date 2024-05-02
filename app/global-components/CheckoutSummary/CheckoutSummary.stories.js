@@ -3,6 +3,7 @@ import CheckoutSummary from "./CheckoutSummary";
 export default {
 	title: "Global Components/Summary price on checkout",
 	component: CheckoutSummary,
+	tags: ["autodocs"],
 	decorators: [
 		(Story) => (
 			<div className="container">

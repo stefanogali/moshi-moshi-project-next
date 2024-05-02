@@ -3,6 +3,7 @@ import ContactFormComponent from "./ContactForm";
 export default {
 	title: "Home Page Sections/Contact Form section",
 	component: ContactFormComponent,
+	tags: ["autodocs"],
 	decorators: [
 		(Story) => (
 			<div style={{marginTop: "100px"}}>

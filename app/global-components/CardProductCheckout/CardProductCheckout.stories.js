@@ -3,7 +3,7 @@ import CardProductCheckout from "./CardProductCheckout";
 export default {
 	title: "Global Components/Product on checkout card",
 	component: CardProductCheckout,
-
+	tags: ["autodocs"],
 	argTypes: {
 		productImage: {
 			options: ["sadgirl1.webp", "sadgirl2.webp", "sadgirl3.webp", "sunglasses1.webp", "sunglasses2.webp", "sunglasses3.webp", "notageisha1.webp", "notageisha2.webp", "notageisha3.webp"],

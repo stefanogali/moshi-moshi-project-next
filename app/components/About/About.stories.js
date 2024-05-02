@@ -3,6 +3,7 @@ import AboutComponent from "./About";
 export default {
 	title: "Home Page Sections/About Section",
 	component: AboutComponent,
+	tags: ["autodocs"],
 	decorators: [
 		(Story) => (
 			<div>

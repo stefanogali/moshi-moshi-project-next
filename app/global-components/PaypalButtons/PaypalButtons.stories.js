@@ -1,4 +1,5 @@
 import PaypalButtonsComponent from "./PaypalButtons";
+import {fn} from "@storybook/test";
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
 
 const initialOptions = {
@@ -10,6 +11,7 @@ const initialOptions = {
 export default {
 	title: "Global Components/Paypal Buttons Checkout",
 	component: PaypalButtonsComponent,
+	tags: ["autodocs"],
 	decorators: [
 		(Story) => (
 			<PayPalScriptProvider options={initialOptions}>
@@ -25,6 +27,9 @@ export default {
 export const PaypalButtons = {
 	args: {
 		products: [],
+		setIsPaypalError: fn(),
+		setIsTransactionSuccess: fn(),
+		setIsConfettiVisible: fn(),
 	},
 	render: function Render(args) {
 		return <PaypalButtonsComponent {...args}></PaypalButtonsComponent>;

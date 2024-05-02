@@ -3,6 +3,7 @@ import Footer from "./Footer";
 export default {
 	title: "Global Components/Footer",
 	component: Footer,
+	tags: ["autodocs"],
 	decorators: [
 		(Story) => (
 			<div className="container">

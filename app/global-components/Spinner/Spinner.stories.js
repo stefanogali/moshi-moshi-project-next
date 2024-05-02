@@ -3,6 +3,7 @@ import SpinnerComponent from "./Spinner";
 export default {
 	title: "Global Components/Spinner wheel",
 	component: SpinnerComponent,
+	tags: ["autodocs"],
 	decorators: [
 		(Story) => (
 			<div className="container">

@@ -3,6 +3,7 @@ import Confetti from "./Confetti";
 export default {
 	title: "Global Components/Confetti after purchase",
 	component: Confetti,
+	tags: ["autodocs"],
 	decorators: [
 		(Story) => (
 			<div className="container">

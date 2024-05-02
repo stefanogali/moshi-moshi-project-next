@@ -3,6 +3,7 @@ import Header from "./Header";
 export default {
 	title: "Global Components/Header",
 	component: Header,
+	tags: ["autodocs"],
 	parameters: {
 		nextjs: {
 			appDirectory: true,

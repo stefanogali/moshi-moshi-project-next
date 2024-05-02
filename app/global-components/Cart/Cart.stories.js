@@ -3,7 +3,7 @@ import CartComponent from "./Cart";
 export default {
 	title: "Global Components/Cart with overlay",
 	component: CartComponent,
-
+	tags: ["autodocs"],
 	decorators: [
 		(Story) => (
 			<div className="container" style={{maxWidth: "1140px"}}>
