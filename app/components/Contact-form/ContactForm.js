@@ -17,6 +17,59 @@ const initialFormState = {
 	isEmailServerError: false,
 };
 
+const FormResult = ({isFormSubmitted, formResults}) => (
+	<div className={styles["contact-form-result-container"]}>
+		{isFormSubmitted && formResults.errorFields.length === 0 && formResults.isEmailSent ? (
+			<div className={`${styles["contact-form-result"]} ${styles.success}`}>
+				<p>Thanks for submitting the form!</p>
+			</div>
+		) : (
+			formResults.isEmailServerError && (
+				<div className={`${styles["contact-form-result"]} ${styles.failure}`}>
+					<p>{formResults.errorFields[0].errorValue}</p>
+				</div>
+			)
+		)}
+	</div>
+);
+
+const FormFieldInput = ({formResults, id, onChangeHandler, name}) => (
+	<>
+		<div className={`${styles["form-element"]}${formResults.errorAnimation.includes(id) ? ` ${styles.shake}` : ""}`}>
+			<Form.Control type="text" id={id} name={id} placeholder={`Your ${id}`} className={styles["form-input"]} value={name} onChange={(event) => onChangeHandler(event)} />
+		</div>
+		{formResults.errorFields.length > 0 && (
+			<div className={styles["input-form-error"]}>
+				<p className={styles["error-detail"]}>
+					{formResults.errorFields.map((result) => {
+						if (result.errorField === id) {
+							return result.errorValue;
+						}
+					})}
+				</p>
+			</div>
+		)}
+	</>
+);
+
+const FormFieldTextarea = ({formResults, id, onChangeHandler, message}) => (
+	<div className={`${styles["form-element"]}${formResults.errorAnimation.includes(id) ? ` ${styles.shake}` : ""}`}>
+		<Form.Control as="textarea" rows={10} placeholder="Your message" className={styles["form-textarea"]} id={id} name={id} type="text" value={message} onChange={(event) => onChangeHandler(event)} />
+		{formResults.errorFields.length > 0 && (
+			<div className={`${styles["input-form-error"]} ${styles["input-textarea"]}`}>
+				<p className={styles["error-detail"]}>
+					{formResults.errorFields.map((result) => {
+						if (result.errorField === "message") {
+							return result.errorValue;
+						}
+					})}
+				</p>
+			</div>
+		)}
+		<p className={styles["message-info"]}>Max 600 characters</p>
+	</div>
+);
+
 export default function ContactForm() {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
@@ -186,55 +239,15 @@ export default function ContactForm() {
 								<Form.Group className="mb-3">
 									<Row>
 										<Col>
-											<div className={`${styles["form-element"]}${formResults.errorAnimation.includes("name") ? ` ${styles.shake}` : ""}`}>
-												<Form.Control type="text" id="name" name="name" placeholder="Your name" className={styles["form-input"]} value={name} onChange={(event) => onChangeHandler(event)} />
-											</div>
-											{formResults.errorFields.length > 0 && (
-												<div className={styles["input-form-error"]}>
-													<p className={styles["error-detail"]}>
-														{formResults.errorFields.map((result) => {
-															if (result.errorField === "name") {
-																return result.errorValue;
-															}
-														})}
-													</p>
-												</div>
-											)}
+											<FormFieldInput formResults={formResults} id="name" onChangeHandler={onChangeHandler} name={name} />
 										</Col>
 										<Col>
-											<div className={`${styles["form-element"]}${formResults.errorAnimation.includes("email") ? ` ${styles.shake}` : ""}`}>
-												<Form.Control type="text" id="email" name="email" placeholder="Your email" className={styles["form-input"]} value={email} onChange={(event) => onChangeHandler(event)} />
-												{formResults.errorFields.length > 0 && (
-													<div className={styles["input-form-error"]}>
-														<p className={styles["error-detail"]}>
-															{formResults.errorFields.map((result) => {
-																if (result.errorField === "email") {
-																	return result.errorValue;
-																}
-															})}
-														</p>
-													</div>
-												)}
-											</div>
+											<FormFieldInput formResults={formResults} id="email" onChangeHandler={onChangeHandler} name={email} />
 										</Col>
 									</Row>
 								</Form.Group>
 								<Form.Group className="mb-3">
-									<div className={`${styles["form-element"]}${formResults.errorAnimation.includes("message") ? ` ${styles.shake}` : ""}`}>
-										<Form.Control as="textarea" rows={10} placeholder="Your message" className={styles["form-textarea"]} id="message" name="message" type="text" value={message} onChange={(event) => onChangeHandler(event)} />
-										{formResults.errorFields.length > 0 && (
-											<div className={`${styles["input-form-error"]} ${styles["input-textarea"]}`}>
-												<p className={styles["error-detail"]}>
-													{formResults.errorFields.map((result) => {
-														if (result.errorField === "message") {
-															return result.errorValue;
-														}
-													})}
-												</p>
-											</div>
-										)}
-										<p className={styles["message-info"]}>Max 600 characters</p>
-									</div>
+									<FormFieldTextarea formResults={formResults} id="message" onChangeHandler={onChangeHandler} message={message} />
 								</Form.Group>
 								{isLoading ? (
 									<Spinner isContactFormLoader={true} />
@@ -245,19 +258,7 @@ export default function ContactForm() {
 								)}
 							</Form>
 							{/* result of sending the form */}
-							<div className={styles["contact-form-result-container"]}>
-								{isFormSubmitted && formResults.errorFields.length === 0 && formResults.isEmailSent ? (
-									<div className={`${styles["contact-form-result"]} ${styles.success}`}>
-										<p>Thanks for submitting the form!</p>
-									</div>
-								) : (
-									formResults.isEmailServerError && (
-										<div className={`${styles["contact-form-result"]} ${styles.failure}`}>
-											<p>{formResults.errorFields[0].errorValue}</p>
-										</div>
-									)
-								)}
-							</div>
+							<FormResult isFormSubmitted={isFormSubmitted} formResults={formResults} />
 						</Col>
 					</Row>
 				</Container>
