@@ -1,7 +1,4 @@
 import styles from "./CardProductCheckout.module.scss";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 export default function CardProductCheckout({productImage, productName, size}) {
 	return (

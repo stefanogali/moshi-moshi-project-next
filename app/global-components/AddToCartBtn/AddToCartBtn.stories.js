@@ -1,7 +1,7 @@
 import AddToCartBtn from "./AddToCartBtn";
 
 export default {
-	title: "Add To Cart Button",
+	title: "Global Components/Add To Cart Button",
 	component: AddToCartBtn,
 	decorators: [
 		(Story) => (
@@ -23,9 +23,9 @@ export const Primary = {
 		name: "Sad Girl #1",
 	},
 	render: function Render(args) {
-		function onClick() {
-			console.log("hello");
-		}
+		// function onClick() {
+		// 	console.log("hello");
+		// }
 
 		return <AddToCartBtn {...args}></AddToCartBtn>;
 	},

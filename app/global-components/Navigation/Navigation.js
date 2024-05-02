@@ -1,13 +1,10 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {useRouter} from "next/navigation";
 import ScrollTo from "../Scrollto/ScrollTo";
 
 import styles from "./Navigation.module.scss";
 
 export default function Navigation() {
-	const router = useRouter();
-
 	return (
 		<Row>
 			<Col>

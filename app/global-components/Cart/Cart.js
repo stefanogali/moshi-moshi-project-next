@@ -8,59 +8,61 @@ import Button from "react-bootstrap/Button";
 import CloseButton from "react-bootstrap/CloseButton";
 import styles from "./Cart.module.scss";
 
-const ShoppingCartOverlay = ({showCart, target, productsInCart, shoppingCartContainerRef, setShowCart, removeProductClickHandler}) => (
-	<Overlay rootClose show={showCart} placement="left" target={target} container={shoppingCartContainerRef}>
-		<Popover id={`popover`} className={styles["popover-cart"]}>
-			<Popover.Body className={styles["popover-cart-body"]}>
-				<CloseButton
-					className={styles["popover-close-btn"]}
-					onClick={() => {
-						setShowCart(false);
-					}}
-				/>
-				{productsInCart.length === 0 ? (
-					<div className={"cart-empty-container"}>
-						<strong>Your cart is empty!</strong>
-						<p>Try to add a product first</p>
-					</div>
-				) : (
-					<div className={styles["cart-products-container"]}>
-						{productsInCart.map((product, index) => (
-							<div className={styles["cart-product"]} key={index}>
-								<div className={styles["product-image"]}>
-									{" "}
-									<img className={styles["product-image"]} src={`./product-images/${product.productImage}`} />
-								</div>
-								<div className={styles["product-details"]}>
-									<strong>Your t-shirt:</strong>
-									<p>{product.name}</p>
-									<div className={styles["product-spec"]}>
-										<p>£{product.price}</p>
-										<p>Size: {product.selectedSize}</p>
+const ShoppingCartOverlay = ({showCart, target, productsInCart, shoppingCartContainerRef, setShowCart, removeProductClickHandler}) => {
+	return (
+		<Overlay rootClose show={showCart} placement="left" target={target} container={shoppingCartContainerRef}>
+			<Popover id={`popover`} className={styles["popover-cart"]}>
+				<Popover.Body className={styles["popover-cart-body"]}>
+					<CloseButton
+						className={styles["popover-close-btn"]}
+						onClick={() => {
+							setShowCart(false);
+						}}
+					/>
+					{productsInCart.length === 0 ? (
+						<div className={"cart-empty-container"}>
+							<strong>Your cart is empty!</strong>
+							<p>Try to add a product first</p>
+						</div>
+					) : (
+						<div className={styles["cart-products-container"]}>
+							{productsInCart.map((product, index) => (
+								<div className={styles["cart-product"]} key={index}>
+									<div className={styles["product-image"]}>
+										{" "}
+										<img className={styles["product-image"]} src={`./product-images/${product.productImage}`} />
 									</div>
+									<div className={styles["product-details"]}>
+										<strong>Your t-shirt:</strong>
+										<p>{product.name}</p>
+										<div className={styles["product-spec"]}>
+											<p>£{product.price}</p>
+											<p>Size: {product.selectedSize}</p>
+										</div>
 
-									<p className={styles["remove-item"]} onClick={removeProductClickHandler.bind(null, product.id)}>
-										<img className={styles["bin-image"]} src={`./garbage.svg`} />
-										<span className={styles["remove-text"]}>Remove item</span>
-									</p>
+										<p className={styles["remove-item"]} onClick={removeProductClickHandler.bind(null, product.id)}>
+											<img className={styles["bin-image"]} src={`./garbage.svg`} />
+											<span className={styles["remove-text"]}>Remove item</span>
+										</p>
+									</div>
 								</div>
+							))}
+							<div className={styles["total-price"]}>
+								<p>Total price</p>
+								<strong>£{sumTotal(productsInCart)}</strong>
 							</div>
-						))}
-						<div className={styles["total-price"]}>
-							<p>Total price</p>
-							<strong>£{sumTotal(productsInCart)}</strong>
+							<div className={styles["checkout-button-container"]}>
+								<Link href="/checkout">
+									<Button className={styles["checkout-btn"]}>Checkout</Button>
+								</Link>
+							</div>
 						</div>
-						<div className={styles["checkout-button-container"]}>
-							<Link href="/checkout">
-								<Button className={styles["checkout-btn"]}>Checkout</Button>
-							</Link>
-						</div>
-					</div>
-				)}
-			</Popover.Body>
-		</Popover>
-	</Overlay>
-);
+					)}
+				</Popover.Body>
+			</Popover>
+		</Overlay>
+	);
+};
 
 export default function Cart() {
 	const [showCart, setShowCart] = useState(false);

@@ -1,10 +1,7 @@
 import Card from "./Card";
-import configureStore from "@/app/hook-store/products-store";
-
-configureStore();
 
 export default {
-	title: "Product card",
+	title: "Global Components/Product card",
 	component: Card,
 
 	argTypes: {
@@ -66,10 +63,6 @@ export const CardProduct = {
 		index: 0,
 	},
 	render: function Render(args) {
-		function onClick() {
-			console.log("hello");
-		}
-
 		return <Card {...args}></Card>;
 	},
 };
