@@ -162,7 +162,7 @@ export default function Card({id, name, productImage, productShowImage, index, d
 		<Col sm={6} md={4} className={styles["products-container"]}>
 			<div className={styles["product-container"]}>
 				<div className={styles["image-container"]}>
-					<img className={styles["product-image"]} src={`./product-images/${productImage}`} onClick={productClickHandler} />
+					<img className={styles["product-image"]} src={`./product-images/${productImage}`} onClick={productClickHandler} alt={`Image of product ${name}`} />
 					<ProductModal show={showModal} onHide={handleClose} name={name}>
 						<Row>
 							<ProductImageModal isImageExpanded={isImageExpanded} setIsImageExpanded={setIsImageExpanded} setIsTableVisible={setIsTableVisible} productShowImage={productShowImage} />
