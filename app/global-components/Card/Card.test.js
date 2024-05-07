@@ -1,5 +1,4 @@
 import Card from "./Card";
-import {tshirtSpecs} from "@/helper-functions/tshirt-specs";
 
 import {fireEvent, render, screen, within, waitFor} from "@testing-library/react";
 import "@testing-library/jest-dom";
@@ -53,12 +52,9 @@ describe("Product card", () => {
 		fireEvent.click(closeButton);
 
 		// has to wait for the modal to be removed from the DOM
-		await waitFor(
-			() => {
-				const modalAfterClose = screen.queryByRole("dialog");
-				expect(modalAfterClose).not.toBeInTheDocument();
-			},
-			{timeout: 1000},
-		); // wait up to 1 second
+		await waitFor(() => {
+			const modalAfterClose = screen.queryByRole("dialog");
+			expect(modalAfterClose).not.toBeInTheDocument();
+		});
 	});
 });

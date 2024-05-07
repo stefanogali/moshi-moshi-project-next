@@ -41,7 +41,7 @@ const ShoppingCartOverlay = ({showCart, target, productsInCart, shoppingCartCont
 										</div>
 
 										<p className={styles["remove-item"]} onClick={removeProductClickHandler.bind(null, product.id)}>
-											<img className={styles["bin-image"]} src={`./garbage.svg`} />
+											<img className={styles["bin-image"]} src={`./garbage.svg`} alt="Delete icon" />
 											<span className={styles["remove-text"]}>Remove item</span>
 										</p>
 									</div>
@@ -134,7 +134,7 @@ export default function Cart() {
 
 	return (
 		<div className={`${styles["shopping-cart"]} ${attach ? ` ${styles.fixed}` : ""}`} ref={shoppingCartContainerRef}>
-			<div className={styles["cart-icon-container"]} onClick={clickHandler}>
+			<div className={styles["cart-icon-container"]} data-testid="cart-icon-container" onClick={clickHandler}>
 				<img className={styles["cart-icon"]} src={`./cart.png`} />
 				{productsInCart.length ? <div className={styles["number-items-in-cart"]}>{productsInCart.length}</div> : null}
 			</div>
