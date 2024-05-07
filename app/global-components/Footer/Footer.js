@@ -11,7 +11,7 @@ export default function Footer() {
 		<Container>
 			<Row>
 				<Col>
-					<footer className={styles.footer}>
+					<footer className={styles.footer} data-testid="footer">
 						<p className={styles.copyright}>© Moshi Moshi Project - Trademark Registered -</p>
 						<p className={styles["photos-author"]}>Photos by Andrew Moi</p>
 						<h5 className={styles["returns-title"]}>Exchange and Return</h5>
