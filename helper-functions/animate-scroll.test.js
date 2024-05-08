@@ -11,12 +11,12 @@ describe("animateScroll", () => {
 		});
 	});
 
-	it("scrolls to the target position", async () => {
+	it("scrolls to the target position", () => {
 		const targetPosition = 100;
 		const initialPosition = 0;
 		const duration = 1000;
 
-		await animateScroll({targetPosition, initialPosition, duration});
+		animateScroll({targetPosition, initialPosition, duration});
 
 		// Check if window.scrollTo was called with the correct arguments.
 		expect(window.scrollTo).toHaveBeenCalledWith(0, targetPosition);
