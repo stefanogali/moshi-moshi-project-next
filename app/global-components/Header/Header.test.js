@@ -2,7 +2,7 @@ import Header from "./Header";
 
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {expect} from "@storybook/test";
+
 // Mock useRouter:
 jest.mock("next/navigation", () => ({
 	useRouter() {

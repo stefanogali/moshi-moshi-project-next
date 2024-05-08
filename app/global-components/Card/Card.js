@@ -28,7 +28,9 @@ const ProductModal = ({show, onHide, name, children}) => (
 // Product specs component
 const ProductSpecs = ({name, description, material, shortDescription, isActive, availability, price, productImage, id, selectedSize, setSelectedSize}) => (
 	<div className={styles["product-specs"]}>
-		<h4 className={styles["product-name"]}>{name}</h4>
+		<h4 className={styles["product-name"]} data-testid="product-title">
+			{name}
+		</h4>
 		<h5 className={styles["product-description"]}>{description}</h5>
 		<p className={styles["product-definition"]}>
 			{material} {shortDescription}
