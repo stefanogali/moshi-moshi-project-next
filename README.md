@@ -30,3 +30,9 @@ npm run storybook
 ```
 
 to view client components on Storybook on [http://localhost:6006/](http://localhost:6006)
+
+```bash
+npm run test
+```
+
+to run tests on client components
