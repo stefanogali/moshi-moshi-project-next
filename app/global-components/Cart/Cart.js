@@ -40,7 +40,7 @@ const ShoppingCartOverlay = ({showCart, target, productsInCart, shoppingCartCont
 											<p>Size: {product.selectedSize}</p>
 										</div>
 
-										<p className={styles["remove-item"]} onClick={removeProductClickHandler.bind(null, product.id)}>
+										<p className={styles["remove-item"]} onClick={removeProductClickHandler.bind(null, product)}>
 											<img className={styles["bin-image"]} src={`./garbage.svg`} alt="Delete icon" />
 											<span className={styles["remove-text"]}>Remove item</span>
 										</p>
@@ -77,10 +77,8 @@ export default function Cart() {
 		setTarget(event.target);
 	};
 
-	const removeProductClickHandler = (id) => {
-		dispatch("REMOVE_PRODUCT", {
-			id,
-		});
+	const removeProductClickHandler = (product) => {
+		dispatch("REMOVE_PRODUCT", product);
 
 		if (store.products.length === 0) {
 			let productsFromLocalStorage = window.localStorage.getItem("cartProducts");

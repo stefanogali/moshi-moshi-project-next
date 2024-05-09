@@ -13,7 +13,7 @@ const setLocalStorage = (products) => {
 		JSON.stringify({
 			products: products,
 			expiry: expiryDate,
-		})
+		}),
 	);
 };
 
@@ -45,16 +45,19 @@ const configureStore = () => {
 			}
 			return;
 		},
-		REMOVE_PRODUCT: (currentState, productId) => {
+		REMOVE_PRODUCT: (currentState, product) => {
 			itemsInCart--;
+
 			if (currentState.products.length === 0) {
 				const productsFromLocalStorage = getLocalStorage();
 				updatedProducts = productsFromLocalStorage.products;
 			}
+
 			updatedProducts.splice(
-				updatedProducts.findIndex((item) => item.id === productId.id),
-				1
+				updatedProducts.findIndex((item) => item.id === product.id && item.selectedSize === product.selectedSize),
+				1,
 			);
+
 			setLocalStorage(updatedProducts);
 			return {products: updatedProducts};
 		},

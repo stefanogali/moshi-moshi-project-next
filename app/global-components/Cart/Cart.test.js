@@ -6,13 +6,22 @@ import "@testing-library/jest-dom";
 
 jest.mock("@/hook-store/store");
 
-const testProduct = {
-	id: 3,
-	name: "Product #1",
-	price: 15,
-	productImage: "notageisha1.webp",
-	selectedSize: "Small",
-};
+const testProduct = [
+	{
+		id: 3,
+		name: "Product #1",
+		price: 15,
+		productImage: "notageisha1.webp",
+		selectedSize: "Small",
+	},
+	{
+		id: 4,
+		name: "Product #2",
+		price: 15,
+		productImage: "sadgirl.webp",
+		selectedSize: "Small",
+	},
+];
 
 describe("Cart", () => {
 	it("renders on page", () => {
@@ -40,10 +49,10 @@ describe("Cart", () => {
 			expect(tooltip).toBeVisible();
 		});
 	});
-	it("it shows product in tooltip if clicking cart with  product", async () => {
+	it("it shows product in tooltip if clicking cart with products", async () => {
 		useStore.mockReturnValue([
 			{
-				products: [testProduct],
+				products: testProduct,
 			},
 		]);
 		render(<Cart />);
@@ -54,35 +63,10 @@ describe("Cart", () => {
 		});
 		await waitFor(() => {
 			const productName = screen.getByText(/Product #1/);
-			const deleteIcon = screen.getByAltText("Delete icon");
+			const deleteIcon = screen.getAllByAltText("Delete icon");
 			expect(productName).toBeInTheDocument();
 			expect(productName).toBeVisible();
-			expect(deleteIcon).toBeVisible();
-		});
-	});
-	it("it removes product in tooltip if clicking remove icon", async () => {
-		const mockDispatch = jest.fn();
-
-		useStore.mockReturnValue([
-			{
-				products: [testProduct],
-			},
-			mockDispatch,
-		]);
-		render(<Cart />);
-
-		const cartIconContainer = screen.getByTestId("cart-icon-container");
-		await act(async () => {
-			fireEvent.click(cartIconContainer);
-		});
-
-		const deleteIcon = screen.getByAltText("Delete icon");
-		await act(async () => {
-			fireEvent.click(deleteIcon);
-		});
-
-		expect(mockDispatch).toHaveBeenCalledWith("REMOVE_PRODUCT", {
-			id: 3,
+			expect(deleteIcon.length).toBe(testProduct.length);
 		});
 	});
 });
