@@ -23,8 +23,8 @@ describe("Cart", () => {
 		]);
 		render(<Cart />);
 
-		const h3 = screen.getByRole("heading", {level: 3, name: /Deliveries/});
-		expect(h3).toBeInTheDocument();
+		const cartIconContainer = screen.getByTestId("cart-icon-container");
+		expect(cartIconContainer).toBeInTheDocument();
 	});
 	it("it shows empty tooltip if clicking cart with no products", async () => {
 		render(<Cart />);
