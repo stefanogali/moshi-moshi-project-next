@@ -24,10 +24,12 @@ describe("Product card", () => {
 		const h4 = screen.getByRole("heading", {level: 4, name: /Product Name/});
 		const select = screen.getByRole("combobox");
 		expect(h4).toBeInTheDocument();
-		expect(select).toHaveValue("Medium"); //refers to the first availability item
+		expect(select).toHaveValue("Medium"); //refers to the first availability item ib the array of objects
 	});
 	it("display out of stock if is not active", () => {
 		render(<Card id name="Product Name" productImage productShowImage index description availability={availability} material shortDescription price isActive={false} />);
+
+		// check if out of stock message is displayed
 		const button = screen.queryByRole("button", {name: /Add to cart/});
 		const outOfStockMessage = screen.getByText(/Temporarily out stock...back soon/);
 		expect(outOfStockMessage).toBeInTheDocument();
@@ -36,6 +38,7 @@ describe("Product card", () => {
 	it("modal is on screen when clicked on image", () => {
 		render(<Card id name="Product Name" productImage="sadgirl1.webp" productShowImage index={1} description availability={availability} material={"Some material"} shortDescription price isActive />);
 
+		// check if modal on the screen after clicking on image
 		const image = screen.getByAltText("Image of product Product Name");
 		fireEvent.click(image);
 
@@ -51,7 +54,7 @@ describe("Product card", () => {
 		const closeButton = within(modal).getByText("Close");
 		fireEvent.click(closeButton);
 
-		// has to wait for the modal to be removed from the DOM
+		// has to wait for the modal to be removed from the DOM after ckicking the close button
 		await waitFor(() => {
 			const modalAfterClose = screen.queryByRole("dialog");
 			expect(modalAfterClose).not.toBeInTheDocument();

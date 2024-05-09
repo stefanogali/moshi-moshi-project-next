@@ -17,7 +17,7 @@ const testProduct = {
 };
 
 const initialOptions = {
-	clientId: process.env.NEXT_PUBLIC_CLIENT_SELLER_ID,
+	clientId: "test",
 	currency: "GBP",
 	intent: "capture",
 };
@@ -34,6 +34,7 @@ describe("The products to checkout", () => {
 				<CheckoutProducts />
 			</PayPalScriptProvider>,
 		);
+		// all elements are rendered
 		const subTotal = screen.getByText(/Sub-total/);
 		expect(subTotal).toBeInTheDocument();
 
@@ -44,11 +45,13 @@ describe("The products to checkout", () => {
 		expect(total).toBeInTheDocument();
 	});
 	it("shows success text if product has been purchased through PayPal", async () => {
+		// mock useState to return values for checkoutProducts, isPaypalError, isConfettiVisible, isTransactionSuccess
 		jest.spyOn(React, "useState")
 			.mockReturnValueOnce([[], jest.fn()]) // for checkoutProducts
 			.mockReturnValueOnce([false, jest.fn()]) // for isPaypalError
 			.mockReturnValueOnce([false, jest.fn()]) // for isConfettiVisible
 			.mockReturnValueOnce([true, jest.fn()]); // for isTransactionSuccess
+
 		useStore.mockReturnValue([
 			{
 				products: [testProduct],
@@ -59,10 +62,12 @@ describe("The products to checkout", () => {
 				<CheckoutProducts />
 			</PayPalScriptProvider>,
 		);
+		// success text is rendered
 		const successText = screen.getByText(/Your items will be shipped soon,/);
 		expect(successText).toBeInTheDocument();
 	});
 	it("shows error text if any error happened during checkout on PayPal", async () => {
+		// mock useState to return values for checkoutProducts, isPaypalError, isConfettiVisible, isTransactionSuccess
 		jest.spyOn(React, "useState")
 			.mockReturnValueOnce([[testProduct], jest.fn()]) // for checkoutProducts
 			.mockReturnValueOnce([true, jest.fn()]) // for isPaypalError
@@ -74,6 +79,8 @@ describe("The products to checkout", () => {
 				<CheckoutProducts />
 			</PayPalScriptProvider>,
 		);
+
+		// error text is rendered
 		const errorText = await screen.findByText(/something went wrong here!/);
 		expect(errorText).toBeInTheDocument();
 	});

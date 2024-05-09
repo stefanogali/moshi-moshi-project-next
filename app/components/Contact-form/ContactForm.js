@@ -183,7 +183,6 @@ export default function ContactForm() {
 			});
 
 			const response = await postFormRequest.json();
-			console.log("response", response);
 
 			if (response.status === 200) {
 				setName("");

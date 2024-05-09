@@ -3,7 +3,6 @@ import {sumTotal, setCookie, getCookie} from "./helpers";
 describe("sumTotal", () => {
 	it("calculates the total sum correctly", () => {
 		const arr = [{price: 10}, {price: 20}, {price: 30}];
-
 		const result = sumTotal(arr);
 
 		expect(result).toBe(60);
@@ -11,7 +10,6 @@ describe("sumTotal", () => {
 
 	it("returns 0 for an empty array", () => {
 		const arr = [];
-
 		const result = sumTotal(arr);
 
 		expect(result).toBe(0);

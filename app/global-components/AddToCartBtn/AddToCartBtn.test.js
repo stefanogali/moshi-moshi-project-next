@@ -12,7 +12,7 @@ describe("Add to cart button", () => {
 	it("renders on page", () => {
 		render(<AddToCartBtn isActive productImage id selectedSize price name />);
 
-		// check if all components are rendered
+		// check if component is rendered
 		const button = screen.getByRole("button", {name: /Add to cart/});
 		expect(button).toBeInTheDocument();
 	});
@@ -38,7 +38,7 @@ describe("Add to cart button", () => {
 	it("do not render on page if not active", () => {
 		render(<AddToCartBtn isActive={false} productImage id selectedSize price name />);
 
-		// check if all components are rendered
+		// check button is not on the screen if isActive is false
 		const button = screen.queryByRole("button", {name: /Add to cart/});
 		expect(button).not.toBeInTheDocument();
 	});

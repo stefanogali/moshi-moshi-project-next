@@ -12,7 +12,7 @@ const AboutRow = ({faceImage, text}) => (
 	<Row className={styles["about-row"]}>
 		<Col lg={4} className={styles["face-container"]}>
 			{" "}
-			<img className={styles["face-image"]} src={`./${faceImage}.png`} />
+			<img className={styles["face-image"]} src={`./${faceImage}.png`} alt={`${faceImage}`} />
 		</Col>
 		<Col lg={8} className={styles["about-text-container"]}>
 			<p className={styles["about-text"]}>{text}</p>

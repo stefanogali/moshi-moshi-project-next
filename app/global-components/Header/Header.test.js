@@ -18,6 +18,8 @@ jest.mock("next/navigation", () => ({
 describe("Header", () => {
 	it("renders on page", () => {
 		render(<Header />);
+
+		// Check if logo and title are rendered
 		const logo = screen.getByRole("img", {name: "Moshi Moshi Project Logo"});
 		const headerTitle = screen.getByRole("heading", {name: "Moshi Moshi Project"});
 		expect(headerTitle).toBeInTheDocument();

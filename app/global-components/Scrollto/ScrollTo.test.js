@@ -20,6 +20,7 @@ const idToScroll = "about";
 
 describe("ScrollTo component", () => {
 	it("calls the scrollTo function if on index page", () => {
+		// mock user to be on index page
 		usePathname.mockImplementation(() => {
 			return "/";
 		});
@@ -30,7 +31,7 @@ describe("ScrollTo component", () => {
 		);
 		const listItem = screen.getByRole("listitem");
 		fireEvent.click(listItem);
-
+		// check if scrollTo function was called with the correct arguments
 		expect(ScrollToModule.scrollTo).toHaveBeenCalledWith({
 			id: idToScroll,
 			ref: undefined,
@@ -44,6 +45,7 @@ describe("ScrollTo component", () => {
 			push: pushMock,
 		}));
 
+		// mock user to be on a different page
 		usePathname.mockImplementation(() => {
 			return "/someurl";
 		});
@@ -56,7 +58,7 @@ describe("ScrollTo component", () => {
 
 		const listItem = screen.getByRole("listitem");
 		fireEvent.click(listItem);
-
+		// check if push function was called with the correct arguments and sent to index page
 		expect(pushMock).toHaveBeenCalledWith(`/#${idToScroll}`);
 	});
 });

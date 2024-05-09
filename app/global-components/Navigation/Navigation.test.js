@@ -24,6 +24,7 @@ describe("Navigation", () => {
 	it("renders on page", () => {
 		render(<Navigation />);
 
+		// check there are 3 links in the navigation
 		const list = screen.getByRole("list");
 		const listItems = screen.getAllByRole("listitem");
 
@@ -39,6 +40,7 @@ describe("Navigation", () => {
 
 		fireEvent.click(linkText);
 
+		// scroll to the section of the page when item is clicked
 		expect(jest.requireMock("../../../helper-functions/scrollTo").scrollTo).toHaveBeenCalledWith({
 			id: "products",
 			ref: undefined,
