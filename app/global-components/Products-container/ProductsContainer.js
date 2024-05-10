@@ -12,7 +12,7 @@ import styles from "./ProductsContainer.module.scss";
 export default function ProductsContainer({className, rowClassName, products}) {
 	const ref = useRef();
 	const isVisible = useIsVisible(ref);
-
+	console.log(products);
 	return (
 		<div id="products" ref={ref}>
 			<Container className={className}>
