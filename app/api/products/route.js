@@ -23,6 +23,8 @@ export async function getProducts() {
 		values: "",
 	});
 
+	console.log("productsData", productsData);
+
 	if (productsData.length > 0) {
 		productsData.forEach((specObject) => {
 			const sizeAndAvailability = [];
@@ -47,5 +49,4 @@ export async function GET(request) {
 	} catch (error) {
 		console.log("error", error);
 	}
-	// return NextResponse.json([{message: "Goodbye next JS"}]);
 }

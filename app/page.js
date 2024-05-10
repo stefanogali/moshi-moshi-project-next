@@ -19,7 +19,7 @@ const isDev = process.env.NODE_ENV === "development";
 
 export default async function Home() {
 	const products = await getProducts();
-
+	console.log("products", products);
 	return (
 		<main>
 			{!isDev ? (
