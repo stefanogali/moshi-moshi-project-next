@@ -13,13 +13,11 @@ const db = mysql({
 export default async function executeQuery({query, values}) {
 	try {
 		const results = await db.transaction().query(query, values).commit(); // commit the transaction and send the query
+
 		const [innerArray] = results;
 		return innerArray;
 	} catch (error) {
 		console.error("MySQL Error:", error);
 		return {error};
-	} finally {
-		// Ensures that the connection is closed after each query
-		await db.end();
 	}
 }
