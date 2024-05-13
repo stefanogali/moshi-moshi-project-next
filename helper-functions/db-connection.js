@@ -3,12 +3,19 @@
 import mysql from "mysql2/promise";
 
 // Create the connection to database
-const connection = await mysql.createConnection({
+const connection = await mysql.createPool({
 	host: process.env.MYSQL_HOST,
 	port: process.env.MYSQL_PORT,
 	database: process.env.MYSQL_DATABASE,
 	user: process.env.MYSQL_USER,
 	password: process.env.MYSQL_PASSWORD,
+	waitForConnections: true,
+	connectionLimit: 10,
+	maxIdle: 10,
+	idleTimeout: 60000,
+	queueLimit: 0,
+	enableKeepAlive: true,
+	keepAliveInitialDelay: 0,
 });
 
 export default async function executeQuery({query, values}) {
