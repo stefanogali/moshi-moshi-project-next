@@ -21,24 +21,26 @@ export default function ProductsContainer({className, rowClassName, products}) {
 						<Container fluid>
 							<Row className={rowClassName}>
 								{products.length > 0 ? (
-									products.map((product, index) => {
-										return (
-											<Card
-												key={product.id}
-												id={product.id}
-												index={index}
-												name={product.name}
-												productImage={`${product.name.toLowerCase().replace(/\s+/g, "").replace(/#/g, "")}.webp`}
-												productShowImage={`${product.name.toLowerCase().replace(/\s+/g, "").replace(/#/g, "")}-show.webp`}
-												availability={product.availability}
-												description={product.description}
-												material={product.material}
-												shortDescription={product.short_description}
-												price={product.price}
-												isActive={product.active}
-											/>
-										);
-									})
+									products
+										?.sort((a, b) => a.id - b.id)
+										.map((product, index) => {
+											return (
+												<Card
+													key={product.id}
+													id={product.id}
+													index={index}
+													name={product.name}
+													productImage={`${product.name.toLowerCase().replace(/\s+/g, "").replace(/#/g, "")}.webp`}
+													productShowImage={`${product.name.toLowerCase().replace(/\s+/g, "").replace(/#/g, "")}-show.webp`}
+													availability={product.availability}
+													description={product.description}
+													material={product.material}
+													shortDescription={product.short_description}
+													price={product.price}
+													isActive={product.active}
+												/>
+											);
+										})
 								) : (
 									<>
 										<h2 className="text-center">Oooops looks like there is a technical problem here! Please wait while we fixing it!</h2>
