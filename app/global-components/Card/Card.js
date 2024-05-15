@@ -10,6 +10,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
+const sizesOrder = ["Small", "Medium", "Large", "XL"];
+
 // Modal component
 const ProductModal = ({show, onHide, name, children}) => (
 	<Modal show={show} fullscreen="sm-down" onHide={onHide} className={styles["modal-products"]}>
@@ -47,15 +49,17 @@ const ProductSpecs = ({name, description, material, shortDescription, isActive, 
 							}}
 							className={styles["size-select"]}
 						>
-							{availability.map((item, index) => {
-								if (item.availability) {
-									return (
-										<option key={index} value={item.size}>
-											{item.size}
-										</option>
-									);
-								}
-							})}
+							{availability
+								?.sort((a, b) => sizesOrder.indexOf(a.size) - sizesOrder.indexOf(b.size))
+								.map((item, index) => {
+									if (item.availability) {
+										return (
+											<option key={index} value={item.size}>
+												{item.size}
+											</option>
+										);
+									}
+								})}
 						</Form.Select>
 					</div>
 					<div className={styles["price"]}>

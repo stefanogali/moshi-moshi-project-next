@@ -1,5 +1,7 @@
 import Script from "next/script";
 
+import {revalidatePath} from "next/cache";
+
 import ProductsContainer from "./global-components/Products-container/ProductsContainer";
 import About from "./components/About/About";
 import ContactForm from "./components/Contact-form/ContactForm";
@@ -13,11 +15,10 @@ export const metadata = {
 	description: "Get your cute Japanese T-Shirt with our original designs. For girls and women fashion.",
 };
 
-export const revalidate = 2;
-
 const isDev = process.env.NODE_ENV === "development";
 
 export default async function Home() {
+	revalidatePath("/");
 	const products = await getProducts();
 
 	return (

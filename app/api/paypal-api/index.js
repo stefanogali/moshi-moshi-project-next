@@ -1,5 +1,5 @@
 const {CLIENT_ID, APP_SECRET} = process.env;
-import excuteQuery from "@/helper-functions/db-connection";
+import {sql} from "@vercel/postgres";
 
 let base = "";
 if (process.env.NODE_ENV === "development") {
@@ -15,15 +15,14 @@ export async function createOrder(data) {
 	let totalPrice = 0;
 
 	for (let i = 0; i < data.cart.length; i++) {
-		const getProductDetails = await excuteQuery({
-			query: `SELECT DISTINCT moshimos_products.Shirt.name,
-			moshimos_products.Product.price
-			FROM moshimos_products.Shirt, moshimos_products.Product
-			WHERE moshimos_products.Shirt.id = ${data.cart[i].id}`,
-			values: "",
-		});
+		const getProductDetails = await sql`SELECT DISTINCT "Shirt".name,
+		"Product".price
+		FROM "Shirt"
+		JOIN "Product" ON "Shirt".id = "Product".shirt_id
+		WHERE "Shirt".id = ${data.cart[i].id}`;
 
-		const extractObj = getProductDetails[0];
+		const {rows} = getProductDetails;
+		const extractObj = rows[0];
 
 		itemsFromCart.push({
 			name: extractObj.name + " - Size: " + data.cart[i].description,
@@ -70,34 +69,34 @@ export async function createOrder(data) {
 export async function capturePayment(orderId, cart) {
 	//check if products are available. If not, return with 500 error
 	for (let i = 0; i < cart.length; i++) {
-		const decreaseAvailability = await excuteQuery({
-			query: `UPDATE moshimos_products.Product, moshimos_products.Size,
-		moshimos_products.Shirt
-		SET moshimos_products.Product.availability = moshimos_products.Product.availability - 1
-		WHERE moshimos_products.Product.shirt_id = ${cart[i].id}
-		AND moshimos_products.Product.size_id = moshimos_products.Size.id
-		AND moshimos_products.Size.size = '${cart[i].description}'
-		AND moshimos_products.Shirt.name = '${cart[i].name}'
-		AND moshimos_products.Product.active = 1
-		AND moshimos_products.Product.availability > 0;`,
-			values: "",
-		});
+		const decreaseAvailability = await sql`UPDATE "Product"
+		SET availability = "Product".availability - 1
+		FROM "Size", "Shirt"
+		WHERE "Product".shirt_id = ${cart[i].id}
+		AND "Product".size_id = "Size".id
+		AND "Size".size = ${cart[i].description}
+		AND "Shirt".name = ${cart[i].name}
+		AND "Product".active = TRUE
+		AND "Product".availability > 0`;
 
-		if (decreaseAvailability.affectedRows === 0) {
+		if (decreaseAvailability.rowCount === 0) {
 			return handleResponse({status: 500, message: "One or more products not available."});
 		}
 
-		const setInactive = await excuteQuery({
-			query: `UPDATE moshimos_products.Product
-			SET moshimos_products.Product.active = 0
-			WHERE moshimos_products.Product.shirt_id in(
-			SELECT moshimos_products.Product.shirt_id FROM (SELECT moshimos_products.Product.shirt_id
-			FROM moshimos_products.Product
-			WHERE moshimos_products.Product.shirt_id = ${cart[i].id} AND moshimos_products.Product.availability < 1) as temporaryTable
-			HAVING COUNT(moshimos_products.Product.availability < 1) = 3) 
-			AND moshimos_products.Product.shirt_id = ${cart[i].id}`,
-			values: "",
-		});
+		const setInactive = await sql`UPDATE "Product"
+		SET "active" = FALSE
+		WHERE "Product".shirt_id IN (
+			SELECT "Product".shirt_id
+			FROM (
+				SELECT "Product".shirt_id
+				FROM "Product"
+				WHERE "Product".shirt_id = ${cart[i].id} AND "Product".availability < 1
+			) AS temporaryTable
+			GROUP BY "Product".shirt_id
+			HAVING COUNT(*) = 3
+		) 
+		AND "Product".shirt_id = ${cart[i].id};
+		`;
 	}
 
 	const accessToken = await generateAccessToken();

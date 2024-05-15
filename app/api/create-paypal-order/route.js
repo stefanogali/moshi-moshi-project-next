@@ -7,6 +7,6 @@ export async function POST(request) {
 		const order = await paypal.createOrder(data);
 		return NextResponse.json(order);
 	} catch (err) {
-		NextResponse.json({error: err});
+		return NextResponse.json({error: err});
 	}
 }
