@@ -6,7 +6,7 @@ configureStore();
 import "bootstrap/dist/css/bootstrap.css";
 
 const preview = {
-	parameters: {
+    parameters: {
 		controls: {
 			matchers: {
 				color: /(background|color)$/i,
@@ -14,6 +14,8 @@ const preview = {
 			},
 		},
 	},
+
+    tags: ["autodocs"]
 };
 
 export default preview;
