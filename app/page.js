@@ -12,7 +12,15 @@ import {getProducts} from "./api/products/route";
 
 export const metadata = {
 	title: "Japanese design T-Shirts | Moshi Moshi Project",
-	description: "Get your cute Japanese T-Shirt with our original designs. For girls and women fashion.",
+	description: "Discover the Moshi Moshi Project – your go-to shop for cute, Japanese-inspired t-shirts! Adorable, playful designs that bring a touch of kawaii to your wardrobe. Shop now for unique, fun fashion that stands out!",
+	generator: "Next.js",
+	applicationName: "Moshi Moshi Project",
+	keywords: ["Japanese-inspired t-shirts", "Cute graphic tees", "Fun t-shirts for adults", "Cute casual wear", "Pastel t-shirts"],
+	authors: [{name: "Stefano Galiffa", url: "https://www.paninopanini.co.uk/"}],
+	metadataBase: new URL("https://www.moshimoshiproject.co.uk"),
+	openGraph: {
+		images: "/product-images/notageisha2.webp",
+	},
 };
 
 const isDev = process.env.NODE_ENV === "development";
