@@ -37,6 +37,13 @@ export default async function Home() {
 		name: product.name,
 		image: `/product-images${product.name.toLowerCase().replace(/\s+/g, "").replace(/#/g, "")}.webp`,
 		description: product.description,
+		offers: {
+			"@type": "Offer",
+			priceCurrency: "GBP",
+			price: product.price,
+			availability: "https://schema.org/" + product.active,
+			url: "https://www.moshimoshiproject.co.uk/",
+		},
 	}));
 
 	return (
