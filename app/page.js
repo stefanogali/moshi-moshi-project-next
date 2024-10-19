@@ -29,8 +29,6 @@ export default async function Home() {
 	revalidatePath("/");
 	const products = await getProducts();
 
-	console.log(products);
-
 	const productSchemaArray = products.map((product) => ({
 		"@context": "https://schema.org/",
 		"@type": "Product",
