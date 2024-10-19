@@ -29,6 +29,16 @@ export default async function Home() {
 	revalidatePath("/");
 	const products = await getProducts();
 
+	console.log(products);
+
+	const productSchemaArray = products.map((product) => ({
+		"@context": "https://schema.org/",
+		"@type": "Product",
+		name: product.name,
+		image: `/product-images${product.name.toLowerCase().replace(/\s+/g, "").replace(/#/g, "")}.webp`,
+		description: product.description,
+	}));
+
 	return (
 		<main>
 			{!isDev ? (
@@ -42,7 +52,8 @@ export default async function Home() {
 
   gtag('config', 'G-TTDL5P5062');
 `}
-					</Script>{" "}
+					</Script>
+					<Script type="application/ld+json" id="product-schema" dangerouslySetInnerHTML={{__html: JSON.stringify(productSchemaArray)}}></Script>
 				</>
 			) : null}
 			<div className={productsContainerStyles["products-main"]}>
