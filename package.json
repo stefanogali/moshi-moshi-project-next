@@ -18,7 +18,6 @@
     "@vercel/postgres": "^0.9.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
-    "esbuild": "^0.25.0",
     "eslint": "^8.37.0",
     "eslint-config-next": "^14.2.20",
     "follow-redirects": "^1.15.6",
