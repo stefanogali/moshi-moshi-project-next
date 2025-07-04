@@ -1,4 +1,4 @@
-/** @type { import('@storybook/react').Preview } */
+/** @type { import('@storybook/nextjs').Preview } */
 
 import configureStore from "@/app/hook-store/products-store";
 configureStore();

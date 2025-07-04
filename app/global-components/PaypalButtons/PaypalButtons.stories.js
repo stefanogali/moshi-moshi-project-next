@@ -1,5 +1,5 @@
 import PaypalButtonsComponent from "./PaypalButtons";
-import {fn} from "@storybook/test";
+import {fn} from "storybook/test";
 import {PayPalScriptProvider} from "@paypal/react-paypal-js";
 
 const initialOptions = {
