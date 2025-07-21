@@ -3,6 +3,7 @@
 import styles from "./Spinner.module.scss";
 
 export default function Spinner({isContactFormLoader}) {
+	// trigger rebuild
 	return (
 		<div className={`${styles["spinner-container"]} ${isContactFormLoader ? ` ${styles["container-smaller"]}` : ""}`}>
 			<div className={styles["loading-spinner"]}></div>
