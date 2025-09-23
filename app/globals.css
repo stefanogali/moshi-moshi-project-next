@@ -3,6 +3,7 @@ body {
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	font-family: var(--font-pt-sans), sans-serif;
 }
 .grecaptcha-badge {
 	z-index: 999;
