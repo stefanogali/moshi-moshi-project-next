@@ -9,7 +9,6 @@ import Footer from "./global-components/Footer/Footer";
 const ptSans = PT_Sans({
 	weight: ["400", "700"],
 	subsets: ["latin"],
-	variable: "--font-pt-sans",
 });
 
 export default function RootLayout({children}) {
