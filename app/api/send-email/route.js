@@ -21,6 +21,19 @@ export async function POST(request) {
 		return NextResponse.json([{errorField: "submit", errorValue: "Captcha challenge failed."}], {status: 400});
 	}
 
+	const expectedAction = "contact_form";
+	const minScore = 0.7;
+
+	if (responseRecaptcha.action !== expectedAction) {
+		console.warn("Unexpected reCAPTCHA action:", responseRecaptcha.action);
+		return NextResponse.json([{errorField: "submit", errorValue: "Invalid form action."}], {status: 400});
+	}
+
+	if (responseRecaptcha.score < minScore) {
+		console.warn("Low reCAPTCHA score:", responseRecaptcha.score);
+		return NextResponse.json([{errorField: "submit", errorValue: "Suspicious behavior detected. Please try again later."}], {status: 400});
+	}
+
 	const errors = [];
 
 	if (name.length < 2 || /\d/.test(name) || name.length > 30) {

@@ -84,7 +84,7 @@ export default function ContactForm() {
 			grecaptcha.ready(() => {
 				grecaptcha
 					.execute(`${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`, {
-						action: "submit",
+						action: "contact_form",
 					})
 					.then((token) => {
 						return res(token);
