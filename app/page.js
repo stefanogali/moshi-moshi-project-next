@@ -26,7 +26,6 @@ export const metadata = {
 const isDev = process.env.NODE_ENV === "development";
 
 export default async function Home() {
-	revalidatePath("/");
 	const products = await getProducts();
 
 	const productSchemaArray = products.map((product) => ({

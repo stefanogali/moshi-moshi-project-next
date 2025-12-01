@@ -1,6 +1,11 @@
 import {NextResponse} from "next/server";
 import {sql} from "@vercel/postgres";
 
+// Force dynamic rendering
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+
 export async function getProducts() {
 	const productsData = await sql`SELECT DISTINCT "Shirt".id, "Shirt".name, "Description".description,
     "Material".material, "Short_description".short_description,
