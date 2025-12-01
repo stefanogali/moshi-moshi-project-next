@@ -1,7 +1,5 @@
 import Script from "next/script";
 
-import {revalidatePath} from "next/cache";
-
 import ProductsContainer from "./global-components/Products-container/ProductsContainer";
 import About from "./components/About/About";
 import ContactForm from "./components/Contact-form/ContactForm";
