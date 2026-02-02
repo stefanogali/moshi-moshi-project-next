@@ -1,6 +1,6 @@
 import {PT_Sans} from "next/font/google";
 import "./globals.css";
-import "bootstrap/dist/css/bootstrap.css";
+import "@/styles/bootstrap.scss";
 
 // import {CartContextProvider} from "./store/cart-context";
 import Header from "./global-components/Header/Header";

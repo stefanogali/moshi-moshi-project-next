@@ -8,7 +8,7 @@ const nextConfig = {
 		ignoreDuringBuilds: true,
 	},
 	sassOptions: {
-		includePaths: [path.join(__dirname, "node_modules")],
+		quietDeps: true, // hides deprecation warnings from node_modules
 	},
 };
 

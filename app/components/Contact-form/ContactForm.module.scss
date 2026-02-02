@@ -1,7 +1,5 @@
-@import "../../variables.module.scss";
-
 .contact-main {
-	background-color: $primary-color;
+	background-color: #f6f7fc;
 	position: relative;
 	padding: 5rem 0;
 	&:before,
@@ -39,7 +37,7 @@
 				font-size: 0.8rem;
 			}
 			.send-message-btn {
-				background-color: $button-color;
+				background-color: #60ecbd;
 				border: none;
 				color: inherit;
 				text-transform: uppercase;

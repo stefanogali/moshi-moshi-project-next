@@ -1,12 +1,9 @@
-@import "../../variables.module.scss";
-@import "../../default-media-queries.scss";
-
 .footer {
 	position: relative;
 	text-align: center;
 	padding-bottom: 9rem;
 	z-index: 9;
-	@include media-breakpoint-up(sm) {
+	@media (min-width: 576px) {
 		padding-bottom: 5rem;
 	}
 	.copyright,

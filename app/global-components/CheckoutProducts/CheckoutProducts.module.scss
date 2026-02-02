@@ -1,10 +1,7 @@
-@import "../../variables.module.scss";
-@import "../../default-media-queries.scss";
-
 .products-checkout-container {
 	position: relative;
 	padding: 2rem 0 5rem 0;
-	background-color: $primary-color;
+	background-color: #f6f7fc;
 	&:before,
 	&:after {
 		position: absolute;
@@ -34,7 +31,7 @@
 		justify-content: center;
 		.paypal-button-container {
 			padding: 2rem 0;
-			@include media-breakpoint-up(md) {
+			@media (min-width: 768px) {
 				margin: 0 auto;
 				max-width: 50%;
 			}

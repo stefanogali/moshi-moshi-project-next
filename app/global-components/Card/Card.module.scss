@@ -1,6 +1,3 @@
-@import "../../variables.module.scss";
-@import "../../default-media-queries.scss";
-
 .products-container {
 	margin-top: 1.85rem !important;
 	.product-container {
@@ -74,12 +71,13 @@
 				max-width: 1.2rem;
 				top: 0.3rem;
 				right: 0.3rem;
-				background-color: $button-color;
+				background-color: #60ecbd;
 				border-radius: 1.25rem;
 				border: 2px solid #ffffff;
 				box-sizing: border-box;
 				cursor: pointer;
-				@include media-breakpoint-up(lg) {
+				// this is lg in bootstrap
+				@media (min-width: 992px) {
 					display: block;
 				}
 			}
