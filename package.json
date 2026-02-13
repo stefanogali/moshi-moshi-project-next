@@ -16,7 +16,7 @@
 		"@paypal/checkout-server-sdk": "^1.0.3",
 		"@paypal/react-paypal-js": "^8.7.0",
 		"@vercel/postgres": "^0.9.0",
-		"axios": "^1.7.9",
+		"axios": "^1.13.5",
 		"bootstrap": "^5.3.3",
 		"eslint": "^9.39.1",
 		"eslint-config-next": "^16.0.5",
