@@ -41,7 +41,7 @@
 		"jest-environment-jsdom": "^29.7.0",
 		"sass": "^1.83.0",
 		"storybook": "^9.1.17",
-		"webpack": "^5.97.1"
+		"webpack": "^5.105.0"
 	},
 	"prettier": {
 		"tabWidth": 4,
