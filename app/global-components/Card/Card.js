@@ -49,7 +49,7 @@ const ProductSpecs = ({name, description, material, shortDescription, isActive, 
 							}}
 							className={styles["size-select"]}
 						>
-							{availability
+							{[...availability]
 								?.sort((a, b) => sizesOrder.indexOf(a.size) - sizesOrder.indexOf(b.size))
 								.map((item, index) => {
 									if (item.availability) {
@@ -138,7 +138,7 @@ export default function Card({id, name, productImage, productShowImage, index, d
 	const [showModal, setShowModal] = useState(false);
 	const [isImageExpanded, setIsImageExpanded] = useState(false);
 	const [isTableVisible, setIsTableVisible] = useState(true);
-	const [selectedSize, setSelectedSize] = useState(availability[availability.findIndex((element) => element.availability >= 1)]?.size);
+	const [selectedSize, setSelectedSize] = useState([...availability].sort((a, b) => sizesOrder.indexOf(a.size) - sizesOrder.indexOf(b.size)).find((element) => element.availability >= 1)?.size);
 
 	const productClickHandler = () => {
 		setShowModal(true);
