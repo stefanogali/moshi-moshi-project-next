@@ -9,27 +9,56 @@ export async function POST(request) {
 	const contactMessage = requestData.message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 	const captchaToken = requestData.token;
 	const genericError = "Ooops something went wrong. Please try to submit again, or email us at info@moshimoshiproject.co.uk";
+	const expectedAction = "contact_form";
+	const minScore = 0.7;
+	const allowedHostnames = new Set(["moshimoshiproject.co.uk", "www.moshimoshiproject.co.uk"]);
 
 	if (!captchaToken) {
 		return NextResponse.json([{errorField: "submit", errorValue: "Ooops we are sorry but something went wrong. Please try to submit your form again."}], {status: 400});
 	}
 
-	const verifyUrl = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_PRIVATE_KEY}&response=${captchaToken}`);
-	const responseRecaptcha = await verifyUrl.json();
-
-	if (!responseRecaptcha.success) {
-		return NextResponse.json([{errorField: "submit", errorValue: "Captcha challenge failed."}], {status: 400});
+	if (!process.env.RECAPTCHA_PRIVATE_KEY) {
+		console.error("reCAPTCHA private key is not configured.");
+		return NextResponse.json([{errorField: "submit", errorValue: "Unable to verify form submission."}], {status: 500});
 	}
 
-	const expectedAction = "contact_form";
-	const minScore = 0.7;
+	let responseRecaptcha;
+	try {
+		const verifyResponse = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+			method: "POST",
+			headers: {"Content-Type": "application/x-www-form-urlencoded"},
+			body: new URLSearchParams({
+				secret: process.env.RECAPTCHA_PRIVATE_KEY,
+				response: captchaToken,
+			}),
+		});
+
+		if (!verifyResponse.ok) {
+			throw new Error(`reCAPTCHA verification returned ${verifyResponse.status}.`);
+		}
+
+		responseRecaptcha = await verifyResponse.json();
+	} catch (error) {
+		console.error("Unable to verify reCAPTCHA:", error);
+		return NextResponse.json([{errorField: "submit", errorValue: "Unable to verify form submission."}], {status: 503});
+	}
+
+	if (responseRecaptcha.success !== true) {
+		return NextResponse.json([{errorField: "submit", errorValue: "Captcha challenge failed."}], {status: 400});
+	}
 
 	if (responseRecaptcha.action !== expectedAction) {
 		console.warn("Unexpected reCAPTCHA action:", responseRecaptcha.action);
 		return NextResponse.json([{errorField: "submit", errorValue: "Invalid form action."}], {status: 400});
 	}
 
-	if (responseRecaptcha.score < minScore) {
+	const verifiedHostname = typeof responseRecaptcha.hostname === "string" ? responseRecaptcha.hostname.toLowerCase() : "";
+	if (!allowedHostnames.has(verifiedHostname)) {
+		console.warn("Unexpected reCAPTCHA hostname:", responseRecaptcha.hostname);
+		return NextResponse.json([{errorField: "submit", errorValue: "Invalid form hostname."}], {status: 400});
+	}
+
+	if (typeof responseRecaptcha.score !== "number" || !Number.isFinite(responseRecaptcha.score) || responseRecaptcha.score < minScore || responseRecaptcha.score > 1) {
 		console.warn("Low reCAPTCHA score:", responseRecaptcha.score);
 		return NextResponse.json([{errorField: "submit", errorValue: "Suspicious behavior detected. Please try again later."}], {status: 400});
 	}
@@ -40,7 +69,7 @@ export async function POST(request) {
 		errors.push({errorField: "name", errorValue: "Invalid Name"});
 	}
 
-	if (email.length < 4 || !name.indexOf("@") || email.length > 60) {
+	if (email.length < 4 || email.indexOf("@") < 0 || email.length > 60) {
 		errors.push({errorField: "email", errorValue: "Invalid Email"});
 	}
 
