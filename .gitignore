@@ -39,3 +39,5 @@ yarn-error.log*
 .netlify
 
 *storybook.log
+# Claude Code
+.claude/
